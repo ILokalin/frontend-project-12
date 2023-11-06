@@ -30,7 +30,10 @@ const LoginPage = () => {
     validationSchema,
     onSubmit: async (values, { setErrors, setFieldError }) => {
       setErrors({});
-      const response = await request(ROUTES.LOGIN_API, "POST", values);
+      const response = await request(ROUTES.LOGIN_API, {
+        method: "POST",
+        data: values,
+      });
 
       if (response.isError) {
         setErrors(authError);

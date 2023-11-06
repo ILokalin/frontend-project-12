@@ -9,7 +9,7 @@ import AuthProvider from "./providers/AuthProvider";
 import store from "./slices";
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById("chat") as HTMLElement
 );
 
 root.render(

@@ -1,13 +1,13 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
 
-export const request = (url: string, method: string, data?: any) => {
-  const config = {
-    method,
+export const request = (url: string, config: any = {}) => {
+  const axiosConfig = {
+    method: "GET",
     url,
-    data,
+    ...(config && { ...config }),
   };
 
-  return axios(config)
+  return axios(axiosConfig)
     .then((response: AxiosResponse) => {
       return response.data;
     })

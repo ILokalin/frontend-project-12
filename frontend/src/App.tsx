@@ -8,7 +8,7 @@ import ROUTES from "./apiConfig";
 
 function App() {
   return (
-    <div className="App">
+    <div className="d-flex flex-column h-100">
       <Routes>
         <Route element={<PublicRoute />}>
           <Route path={ROUTES.LOGIN_PAGE} element={<LoginPage />} />
