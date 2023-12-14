@@ -1,25 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Provider } from "react-redux";
-import { BrowserRouter as Router } from "react-router-dom";
+import init from './init';
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import App from "./App";
-import AuthProvider from "./providers/AuthProvider";
-import store from "./slices";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("chat") as HTMLElement
-);
 
-root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <AuthProvider>
-        <Router>
-          <App />
-        </Router>
-      </AuthProvider>
-    </Provider>
-  </React.StrictMode>
-);
+const run = async () => {
+  const root = ReactDOM.createRoot(
+    document.getElementById("chat") as HTMLElement
+  );
+  const app = await init();
+  root.render(<React.StrictMode>{app}</React.StrictMode>);
+};
+
+run();
