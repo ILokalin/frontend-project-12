@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  ChannelEntity,
-  selectChannelsSlice,
+  selectChannelsList,
+  selectCurrentChannelId,
   setCurrentChannel,
 } from "../../slices/channels";
 import Channel from "./Channel";
@@ -10,9 +10,10 @@ import Channel from "./Channel";
 const Channels = () => {
   const dispatch = useDispatch();
 
-  const { channels, currentChannelId } = useSelector(selectChannelsSlice);
+  const channels = useSelector(selectChannelsList);
+  const currentChannelId = useSelector(selectCurrentChannelId);
 
-  const handleSelect = (channel: ChannelEntity) => () => {
+  const handleSelect = (channel) => () => {
     dispatch(setCurrentChannel(channel));
   };
 

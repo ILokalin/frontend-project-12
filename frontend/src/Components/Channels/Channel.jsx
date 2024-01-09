@@ -1,13 +1,6 @@
-import { ChannelEntity } from "../../slices/channels";
 import { Button } from "react-bootstrap";
 
-interface ChannelProps {
-  channel: ChannelEntity;
-  isCurrent: boolean;
-  handleSelect: () => void;
-}
-
-const Channel = ({ channel, isCurrent, handleSelect }: ChannelProps) => {
+const Channel = ({ channel, isCurrent, handleSelect }) => {
   const variant = isCurrent ? "secondary" : "";
 
   return (

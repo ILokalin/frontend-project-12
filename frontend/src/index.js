@@ -6,9 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 
 const run = async () => {
-  const root = ReactDOM.createRoot(
-    document.getElementById("chat") as HTMLElement
-  );
+  const root = ReactDOM.createRoot(document.getElementById("chat"));
   const app = await init();
   root.render(<React.StrictMode>{app}</React.StrictMode>);
 };

@@ -1,6 +1,6 @@
-import axios, { AxiosResponse, AxiosError } from "axios";
+import axios from "axios";
 
-export const request = (url: string, config: any = {}) => {
+export const request = (url, config = {}) => {
   const axiosConfig = {
     method: "GET",
     url,
@@ -8,10 +8,10 @@ export const request = (url: string, config: any = {}) => {
   };
 
   return axios(axiosConfig)
-    .then((response: AxiosResponse) => {
+    .then((response) => {
       return response.data;
     })
-    .catch((error: AxiosError) => {
+    .catch((error) => {
       return {
         isError: true,
         code: error.response?.status || 500,

@@ -17,7 +17,7 @@ import {
 const LoginPage = () => {
   const navigate = useNavigate();
   const auth = useAuth();
-  const loginRef = useRef<HTMLInputElement | null>(null);
+  const loginRef = useRef(null);
 
   useEffect(() => {
     if (loginRef.current) {

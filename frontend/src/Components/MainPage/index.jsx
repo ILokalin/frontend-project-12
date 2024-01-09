@@ -4,8 +4,9 @@ import Wrapper from "../Wrapper";
 import { request } from "../../utils/request";
 import ROUTES from "../../apiConfig";
 import { useAuth } from "../../providers/AuthProvider";
-import { addChannels } from "../../slices/channels";
+import { setChannels } from "../../slices/channels";
 import Channels from "../Channels";
+import Chat from '../Chat';
 
 const MainPage = () => {
   const auth = useAuth();
@@ -15,7 +16,7 @@ const MainPage = () => {
     const fetchData = async () => {
       const config = { headers: auth.getAuthHeader() };
       const response = await request(ROUTES.DATA_API, config);
-      dispatch(addChannels(response));
+      dispatch(setChannels(response));
     };
     fetchData();
   }, [auth]);
@@ -24,6 +25,7 @@ const MainPage = () => {
     <Wrapper>
       <div className="row h-100 bg-white flex-md-row">
         <Channels />
+        <Chat />
         <div className="col p-0 h-100"></div>
       </div>
     </Wrapper>

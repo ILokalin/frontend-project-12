@@ -1,13 +1,8 @@
-export interface User {
-  token: string;
-  username: string;
-}
-
-export const setAuth = (user: User): void => {
+export const setAuth = (user) => {
   localStorage.setItem("user", JSON.stringify(user));
 };
 
-export const getAuth = (): User | null => {
+export const getAuth = () => {
   const user = localStorage.getItem("user");
   return user ? JSON.parse(user) : null;
 };

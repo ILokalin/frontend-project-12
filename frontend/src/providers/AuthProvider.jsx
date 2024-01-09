@@ -10,24 +10,13 @@ import React, {
 import { useDispatch } from "react-redux";
 import { getAuth, setAuth, clearAuth, User } from "../utils/tokenUtils";
 
-interface AuthContextType {
-  user: User | null;
-  logIn: (data: User) => void;
-  logOut: () => void;
-  getAuthHeader: () => Record<string, string>;
-}
+const AuthContext = createContext();
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-interface AuthProviderProps {
-  children: ReactNode;
-}
-
-const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+const AuthProvider = ({ children }) => {
   const dispatch = useDispatch();
 
-  const currentUser = getAuth() as User | null;
-  const [user, setUser] = useState<User | null>(currentUser);
+  const currentUser = getAuth();
+  const [user, setUser] = useState(currentUser);
 
   useEffect(() => {
     if (!user) {
@@ -37,7 +26,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setAuth(user);
   }, [user]);
 
-  const logIn = useCallback((data: User) => {
+  const logIn = useCallback((data) => {
     setUser(data);
   }, []);
 
@@ -53,7 +42,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return { Authorization: "" };
   }, [user]);
 
-  const contextValue: AuthContextType = useMemo(
+  const contextValue = useMemo(
     () => ({
       user,
       logIn,
@@ -68,10 +57,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   );
 };
 
-export const useAuth = (): AuthContextType => {
+export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
+    throw new Error("useAuth must be used with an AuthProvider");
   }
   return context;
 };
