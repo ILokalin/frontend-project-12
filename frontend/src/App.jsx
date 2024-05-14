@@ -1,10 +1,10 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import NotFoundPage from "./Components/NotFoundPage";
-import LoginPage from "./Components/LoginPage";
-import MainPage from "./Components/MainPage";
-import { PrivateRout, PublicRoute } from "./Components/misc";
-import ROUTES from "./apiConfig";
+import NotFoundPage from "components/NotFoundPage";
+import LoginPage from "components/LoginPage";
+import MainPage from "components/MainPage";
+import { PrivateRout, PublicRoute } from "./appRouts";
+import ROUTES from "./api/apiConfig";
 
 function App() {
   return (

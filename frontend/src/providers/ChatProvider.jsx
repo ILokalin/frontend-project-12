@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 import { useDispatch } from "react-redux"; 
-import { setMessage } from '../slices/messages';
+import { setMessage } from '../slices to remove/messages';
 
 const ChatContext = createContext();
 

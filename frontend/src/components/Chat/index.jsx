@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectCurrentMessages } from "../../slices/messages";
-import Message from "./Message";
-import MessageForm from "./MessageForm";
+import { selectCurrentMessages } from "../../slices to remove/messages";
+import Message from "components/Message";
+import MessageForm from "components/MessageForm";
 
 const Chat = () => {
   const messages = useSelector(selectCurrentMessages);

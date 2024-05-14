@@ -15,3 +15,6 @@ build:
 
 deploy:
 	npm ci && cd ./frontend && npm ci && npm run build:deploy
+
+freeport:
+	sudo fuser -k 5001/tcp
