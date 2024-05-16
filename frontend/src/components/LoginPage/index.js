@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useRef, useEffect } from "react";
+import { useSelector } from 'react-redux';
 import { useFormik } from "formik";
 import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,6 @@ import { validationSchema } from "./validation";
 import ROUTES from "api/apiConfig";
 import {
   initialValues,
-  authError,
   USERNAME_FIELD,
   PASSWORD_FIELD,
 } from "./constants";

@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createSelector } from '@reduxjs/toolkit';
 import ROUTES from './apiConfig';
+import { selectCurrentChannelId } from 'slices/uiSlice';
 import { prepareHeaders } from './helpers';
 
 const baseQuery = fetchBaseQuery({
@@ -35,8 +37,25 @@ const messagesApi = createApi({
       }),
     }),
   }),
-
 });
+
+const selectMessages = messagesApi.endpoints.getMessages.select();
+
+const selectMessagesData = createSelector(
+  selectMessages,
+  (messagesState) => {
+    debugger
+    return messagesState.data ?? []
+  }
+);
+
+export const selectCurrentMessages = createSelector(
+  [selectMessagesData, selectCurrentChannelId],
+  (messages, currentChannelId) => {
+    debugger
+    return messages.filter(({ channelId }) => channelId === currentChannelId) || null
+  }
+);
 
 export const {
   useAddMessageMutation: useAddMessage,

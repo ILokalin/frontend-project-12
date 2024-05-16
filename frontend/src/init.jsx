@@ -12,13 +12,13 @@ import { io } from 'socket.io-client';
 const init = () => {
   const socket = io();
 
-  const listenerAddChannel = (payload) => {
+  const listenerNewChannel = (payload) => {
     store.dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => {
       draftChannels.push(payload);
     }));
   };
 
-  const listenerDeleteChannel = (payload) => {
+  const listenerRemoveChannel = (payload) => {
     const state = store.getState();
     if (state.ui.currentChannelId === payload.id) {
       store.dispatch(setCurrentChannel(state.ui.defaultChannelId));
@@ -28,25 +28,26 @@ const init = () => {
     }));
   };
 
-  const listenerEditChannel = (payload) => {
+  const listenerRenameChannel = (payload) => {
     store.dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => {
       const channel = draftChannels.find((item) => item.id === payload.id);
       channel.name = payload.name;
       if (channel) {
-        channel.name = payload.name; 
+        channel.name = payload.name;
       }
     }));
   };
 
   const listenerNewMessage = (payload) => {
+    debugger
     store.dispatch(messagesApi.util.updateQueryData('getMessages', undefined, (draftMessage) => {
       draftMessage.push(payload);
     }));
   };
 
-  socket.on('newChannel', listenerAddChannel);
-  socket.on('removeChannel', listenerDeleteChannel);
-  socket.on('renameChannel', listenerEditChannel);
+  socket.on('newChannel', listenerNewChannel);
+  socket.on('removeChannel', listenerRemoveChannel);
+  socket.on('renameChannel', listenerRenameChannel);
   socket.on('newMessage', listenerNewMessage);
 
   return (
