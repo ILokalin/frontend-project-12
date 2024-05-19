@@ -1,7 +1,7 @@
-export const USERNAME_FIELD = "username";
-export const PASSWORD_FIELD = "password";
+export const FIELD_USERNAME = "username";
+export const FIELD_PASSWORD = "password";
 
 export const initialValues = {
-  [USERNAME_FIELD]: "",
-  [PASSWORD_FIELD]: "",
+  [FIELD_USERNAME]: "",
+  [FIELD_PASSWORD]: "",
 };

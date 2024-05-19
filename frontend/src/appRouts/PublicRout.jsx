@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useSelector } from 'react-redux';
-import { selectIsAuth } from 'slices/authSlice';
+import { useSelector } from "react-redux";
+import { selectIsAuth } from "slices/authSlice";
 import ROUTES from "api/apiConfig";
 
 const PublicRoute = () => {

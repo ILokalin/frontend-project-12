@@ -1,8 +1,8 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { createSelector } from '@reduxjs/toolkit';
-import ROUTES from './apiConfig';
-import { selectCurrentChannelId } from 'slices/uiSlice';
-import { prepareHeaders } from './helpers';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createSelector } from "@reduxjs/toolkit";
+import ROUTES from "./apiConfig";
+import { selectCurrentChannelId } from "slices/uiSlice";
+import { prepareHeaders } from "./helpers";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: ROUTES.MESSAGES_API,
@@ -10,30 +10,30 @@ const baseQuery = fetchBaseQuery({
 });
 
 const messagesApi = createApi({
-  reducerPath: 'messagesApi',
+  reducerPath: "messagesApi",
   baseQuery,
-  tagTypes: ['Messages'],
+  tagTypes: ["Messages"],
   endpoints: (builder) => ({
     addMessage: builder.mutation({
       query: (message) => ({
-        method: 'POST',
+        method: "POST",
         body: message,
       }),
     }),
     getMessages: builder.query({
-      query: () => '',
-      providesTags: ['Messages'],
+      query: () => "",
+      providesTags: ["Messages"],
     }),
     updateMessage: builder.mutation({
       query: (message) => ({
-        method: 'PATCH',
+        method: "PATCH",
         body: message,
       }),
     }),
     deleteMessage: builder.mutation({
       query: (id) => ({
         url: id,
-        method: 'DELETE',
+        method: "DELETE",
       }),
     }),
   }),
@@ -43,18 +43,13 @@ const selectMessages = messagesApi.endpoints.getMessages.select();
 
 const selectMessagesData = createSelector(
   selectMessages,
-  (messagesState) => {
-    debugger
-    return messagesState.data ?? []
-  }
+  (messagesState) => messagesState.data ?? []
 );
 
 export const selectCurrentMessages = createSelector(
   [selectMessagesData, selectCurrentChannelId],
-  (messages, currentChannelId) => {
-    debugger
-    return messages.filter(({ channelId }) => channelId === currentChannelId) || null
-  }
+  (messages, currentChannelId) =>
+    messages.filter(({ channelId }) => channelId === currentChannelId) || null
 );
 
 export const {

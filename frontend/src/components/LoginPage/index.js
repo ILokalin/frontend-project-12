@@ -1,30 +1,23 @@
 import React, { useRef, useEffect } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Wrapper from "components/Wrapper";
 import { useLogin } from "api/authApi";
-import { selectError, selectIsError } from "slices/authSlice";
-import { validationSchema } from "./validation";
+import { selectError } from "slices/authSlice";
 import ROUTES from "api/apiConfig";
-import {
-  initialValues,
-  USERNAME_FIELD,
-  PASSWORD_FIELD,
-} from "./constants";
+import { validationSchema } from "./validation";
+import { initialValues, FIELD_USERNAME, FIELD_PASSWORD } from "./constants";
 
 const LoginPage = () => {
-  const isAuthError = useSelector(selectIsError);
   const authError = useSelector(selectError);
   const navigate = useNavigate();
   const loginRef = useRef(null);
   const [login, { isLoading }] = useLogin();
 
   useEffect(() => {
-    if (loginRef.current) {
-      loginRef.current.focus();
-    }
+    loginRef.current.focus();
   }, []);
 
   const { handleSubmit, handleChange, values, errors } = useFormik({
@@ -37,6 +30,9 @@ const LoginPage = () => {
     },
   });
 
+  const userFieldErrors = errors[FIELD_USERNAME];
+  const passwordFieldErrors = errors[FIELD_PASSWORD] || authError;
+
   return (
     <Wrapper>
       <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={handleSubmit}>
@@ -44,35 +40,35 @@ const LoginPage = () => {
         <Form.Group className="form-floating mb-3">
           <Form.Control
             className="form-control"
-            name={USERNAME_FIELD}
-            id={USERNAME_FIELD}
+            name={FIELD_USERNAME}
+            id={FIELD_USERNAME}
             onChange={handleChange}
-            value={values.username}
+            value={values[FIELD_USERNAME]}
             autoComplete="username"
             placeholder="Ваш ник"
             ref={loginRef}
-            isInvalid={!!errors[USERNAME_FIELD] || isAuthError}
+            isInvalid={!!userFieldErrors}
           />
           <Form.Label htmlFor="username">Ваш ник</Form.Label>
           <Form.Control.Feedback type="invalid">
-            {errors[USERNAME_FIELD]}
+            {userFieldErrors}
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="form-floating mb-3">
           <Form.Control
             className="form-control"
-            name={PASSWORD_FIELD}
-            id={PASSWORD_FIELD}
+            name={FIELD_PASSWORD}
+            id={FIELD_PASSWORD}
             type="password"
             onChange={handleChange}
-            value={values.password}
+            value={values[FIELD_PASSWORD]}
             autoComplete="current-pasword"
             placeholder="Пароль"
-            isInvalid={!!errors[PASSWORD_FIELD] || isAuthError}
+            isInvalid={!!passwordFieldErrors}
           />
           <Form.Label htmlFor="password">Пароль</Form.Label>
           <Form.Control.Feedback type="invalid">
-            {errors[PASSWORD_FIELD] || authError}
+            {passwordFieldErrors}
           </Form.Control.Feedback>
         </Form.Group>
         <Button className="w-100 mb-3" type="submit" variant="outline-primary">

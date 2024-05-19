@@ -1,6 +1,6 @@
 import * as yup from "yup";
-import { MESSAGE_FIELD } from "./constants";
+import { FIELD_MESSAGE } from "./constants";
 
 export const validationSchema = yup.object().shape({
-  [MESSAGE_FIELD]: yup.string().trim().required("requiredField"),
+  [FIELD_MESSAGE]: yup.string().trim().required("requiredField"),
 });
