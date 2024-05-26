@@ -2,12 +2,12 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider as RollbarProvider, ErrorBoundary } from "@rollbar/react";
 import { io } from "socket.io-client";
-import channelsApi from "api/channelsApi";
-import messagesApi from "api/messagesApi";
-import { setCurrentChannel } from "slices/uiSlice";
+import channelsApi from "services/channelsApi";
+import messagesApi from "services/messagesApi";
+import { setCurrentChannel } from "redux/slices/uiSlice";
 import App from "./App";
-import { rollbarConfig } from "./rollbarConfig";
-import store from "./store";
+import { rollbarConfig } from "./configs/rollbar";
+import store from "./redux/store";
 import { ModalProvider } from "context/ModalContext";
 import Modal from "components/Modal";
 

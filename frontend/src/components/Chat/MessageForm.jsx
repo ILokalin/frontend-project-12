@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { Form, InputGroup, Button } from "react-bootstrap";
 import { ArrowRightSquare } from "react-bootstrap-icons";
-import { selectCurrentChannel } from "api/channelsApi";
-import { selectUser } from "slices/authSlice";
-import { useAddMessage } from "api/messagesApi";
+import { selectCurrentChannel } from "services/channelsApi";
+import { selectUser } from "redux/slices/authSlice";
+import { useAddMessage } from "services/messagesApi";
 import { initialValues, FIELD_MESSAGE } from "./constants";
 import { validationSchema } from "./validation";
 

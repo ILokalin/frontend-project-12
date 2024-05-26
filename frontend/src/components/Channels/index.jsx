@@ -2,13 +2,13 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
 import { PlusSquare } from "react-bootstrap-icons";
-import { useGetChannels } from "api/channelsApi";
-import { selectCurrentChannelId, setCurrentChannel } from "slices/uiSlice";
+import { useGetChannels } from "services/channelsApi";
+import { selectCurrentChannelId, setCurrentChannel } from "redux/slices/uiSlice";
 import { useModal } from "context/ModalContext";
 import Channel from "./Channel";
 import AddForm from "./AddForm";
 import RenameForm from "./RenameForm";
-import { DeleteForm } from "./DeleteForm";
+import DeleteForm from "./DeleteForm";
 
 const Channels = () => {
   const { openModal } = useModal();

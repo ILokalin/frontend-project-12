@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import ROUTES from "./apiConfig";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: ROUTES.LOGIN_API,
+  baseUrl: '.',
 });
 
 const authApi = createApi({
@@ -11,14 +11,24 @@ const authApi = createApi({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentials) => ({
-        url: "",
+        url: ROUTES.LOGIN,
         method: "POST",
         body: credentials,
       }),
     }),
+    signup: builder.mutation({
+      query: (credentials) => ({
+        url: ROUTES.SIGNUP,
+        method: "POST",
+        body: credentials,
+      }),
+    })
   }),
 });
 
-export const { useLoginMutation: useLogin } = authApi;
+export const {
+  useLoginMutation: useLogin,
+  useSignupMutation: useSignup,
+} = authApi;
 
 export default authApi;

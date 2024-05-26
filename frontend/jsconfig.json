@@ -2,11 +2,13 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "api/*": ["api/*"],
+      "services/*": ["services/*"],
       "appRouts/*": ["appRouts/*"],
       "components/*": ["components/*"],
       "context/*": ["context/*"],
-      "slices/*": ["slices/*"]
+      "redux/*": ["redux/*"],
+      "assets/*": ["assets/*"],
+      "configs/*": ["configs/*"]
     }
   },
   "exclude": ["node_modules", "build"]

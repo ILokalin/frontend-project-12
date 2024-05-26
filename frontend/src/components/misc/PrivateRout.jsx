@@ -1,12 +1,12 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectIsAuth } from "slices/authSlice";
-import ROUTES from "api/apiConfig";
+import { selectIsAuth } from "redux/slices/authSlice";
+import PAGES from "configs/routs";
 
 const PrivateRoute = () => {
   const isAuth = useSelector(selectIsAuth);
 
-  return isAuth ? <Outlet /> : <Navigate to={ROUTES.LOGIN_PAGE} />;
+  return isAuth ? <Outlet /> : <Navigate to={PAGES.LOGIN} />;
 };
 
 export default PrivateRoute;

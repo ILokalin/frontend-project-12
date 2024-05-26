@@ -1,18 +1,19 @@
 import React, { useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useFormik } from "formik";
-import { Button, Form } from "react-bootstrap";
-import { selectChannelsNames, useUpdateChannel } from "api/channelsApi";
+import { Form } from "react-bootstrap";
+import { selectChannelsNames, useUpdateChannel } from "services/channelsApi";
 import { getValidationSchema } from "./validation";
-import { FIELD_NAME, initialValues } from "./constants";
+import { FIELD_NAME } from "./constants";
+import Button from "components/Buttons/LoadingButton";
 
-export const RenameForm = ({ handleClose, channel }) => {
+const RenameForm = ({ handleClose, channel }) => {
   const names = useSelector(selectChannelsNames);
   const inputRef = useRef(null);
-  const [renameChannel, { error, isLoading }] = useUpdateChannel();
+  const [renameChannel, { isLoading }] = useUpdateChannel();
 
   useEffect(() => {
-    inputRef.current.focus();
+    inputRef.current.select();
   }, []);
 
   const {
@@ -26,18 +27,27 @@ export const RenameForm = ({ handleClose, channel }) => {
     dirty,
   } = useFormik({
     validationSchema: getValidationSchema(names),
-    initialValues,
+    initialValues: {
+      [FIELD_NAME]: channel.name,
+    },
     onSubmit: async (formData) => {
-      const response = await renameChannel({
-        ...formData,
+      const schema = getValidationSchema(names)
+      await schema.validate(formData);
+      await renameChannel({
+        ...schema.cast(formData),
         id: channel.id,
       });
       handleClose();
     },
+    validateOnBlur: false,
+    validateOnChange: false,
   });
 
-  const nameError = (dirty && errors[FIELD_NAME]) || status;
-  const isSubmitDisabled = !dirty || nameError || isSubmitting;
+  const extraErrors = {
+    ...errors,
+    ...status && { [FIELD_NAME]: status },
+  }
+  const isSubmitDisabled = !dirty || isSubmitting;
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -48,27 +58,33 @@ export const RenameForm = ({ handleClose, channel }) => {
           ref={inputRef}
           onChange={handleChange}
           onBlur={handleBlur}
-          values={values[FIELD_NAME]}
+          value={values[FIELD_NAME]}
           name={FIELD_NAME}
           id={FIELD_NAME}
-          isInvalid={nameError}
+          isInvalid={!!extraErrors[FIELD_NAME]}
         />
-        <label className="visually-hidden" htmlFor={FIELD_NAME}>
+        <Form.Label className="visually-hidden" htmlFor={FIELD_NAME}>
           Название канала
-        </label>
+        </Form.Label>
         <Form.Control.Feedback type="invalid">
-          {nameError}
+          {extraErrors[FIELD_NAME]}
         </Form.Control.Feedback>
         <div className="d-flex justify-content-end">
           <Button
             className="me-2"
             variant="secondary"
             type="button"
+            disabled={isSubmitting}
             onClick={handleClose}
           >
             Отменить
           </Button>
-          <Button variant="primary" type="submit" disabled={isSubmitDisabled}>
+          <Button
+            type="submit"
+            variant="primary"
+            disabled={isSubmitDisabled}
+            isLoading={isLoading}
+          >
             Сохранить
           </Button>
         </div>

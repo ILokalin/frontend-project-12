@@ -1,15 +1,16 @@
 import React, { useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useFormik } from "formik";
-import { Button, Form } from "react-bootstrap";
-import { selectChannelsNames, useAddChannel } from "api/channelsApi";
+import { Form } from "react-bootstrap";
+import { selectChannelsNames, useAddChannel } from "services/channelsApi";
+import Button from "components/Buttons/LoadingButton";
 import { getValidationSchema } from "./validation";
 import { FIELD_NAME, initialValues } from "./constants";
 
-export const AddForm = ({ handleClose }) => {
+const AddForm = ({ handleClose }) => {
   const names = useSelector(selectChannelsNames);
   const inputRef = useRef(null);
-  const [addChannel, { error, isLoading }] = useAddChannel();
+  const [addChannel, { isLoading }] = useAddChannel();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -28,14 +29,18 @@ export const AddForm = ({ handleClose }) => {
     validationSchema: getValidationSchema(names),
     initialValues,
     onSubmit: async (formData) => {
-      const response = await addChannel(formData);
-      debugger;
+      const schema = getValidationSchema(names);
+      await schema.validate(formData);
+      await addChannel(schema.cast(formData));
       handleClose();
     },
   });
 
-  const nameError = (dirty && errors[FIELD_NAME]) || status;
-  const isSubmitDisabled = !dirty || nameError || isSubmitting;
+  const extraErrors = {
+    ...errors,
+    ...(status && { [FIELD_NAME]: status }),
+  };
+  const isSubmitDisabled = !dirty || isSubmitting;
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -49,13 +54,13 @@ export const AddForm = ({ handleClose }) => {
           values={values[FIELD_NAME]}
           name={FIELD_NAME}
           id={FIELD_NAME}
-          isInvalid={nameError}
+          isInvalid={extraErrors[FIELD_NAME]}
         />
         <label className="visually-hidden" htmlFor={FIELD_NAME}>
           Название канала
         </label>
         <Form.Control.Feedback type="invalid">
-          {nameError}
+          {extraErrors[FIELD_NAME]}
         </Form.Control.Feedback>
         <div className="d-flex justify-content-end">
           <Button
@@ -63,10 +68,16 @@ export const AddForm = ({ handleClose }) => {
             variant="secondary"
             type="button"
             onClick={handleClose}
+            disabled={isSubmitting}
           >
             Отменить
           </Button>
-          <Button variant="primary" type="submit" disabled={isSubmitDisabled}>
+          <Button
+            isLoading={isLoading}
+            variant="primary"
+            type="submit"
+            disabled={isSubmitDisabled}
+          >
             Сохранить
           </Button>
         </div>

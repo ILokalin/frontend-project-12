@@ -1,18 +1,23 @@
-import React, { ReactNode } from "react";
-import Spinner from "react-bootstrap/Spinner";
+import React from "react";
+import classNames from "classnames";
+import Loader from "./Loader";
 
-const Wrapper = ({ isLoading, children }) => (
-  <div className="container h-100 my-4 overflow-hidden rounded shadow">
-    {isLoading ? (
-      <div className="h-100 d-flex justify-content-center align-items-center">
-        <Spinner animation="border" role="status" variant="primary">
-          <span className="visually-hidden">Загрузка...</span>
-        </Spinner>
-      </div>
-    ) : (
-      <div className="row h-100 bg-white flex-md-row">{children}</div>
-    )}
-  </div>
-);
+const Wrapper = ({ isLoading, children, isPage }) => {
+  const wrapperClass = classNames(
+    'h-100',
+    { 'container-fluid': !isPage },
+    { 'container my-4 overflow-hidden rounded shadow': isPage }
+  );
+
+  return (
+    <div className={wrapperClass}>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        children
+      )}
+    </div>
+  );
+};
 
 export default Wrapper;

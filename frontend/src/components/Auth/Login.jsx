@@ -1,23 +1,25 @@
 import React, { useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Form, Card } from "react-bootstrap";
 import { useFormik } from "formik";
-import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import Wrapper from "components/Wrapper";
-import { useLogin } from "api/authApi";
-import { selectError } from "slices/authSlice";
-import ROUTES from "api/apiConfig";
+import { useLogin } from "services/authApi";
+import { selectError } from "redux/slices/authSlice";
+import PAGES from "configs/routs";
+import loginImg from "assets/login.jpg";
+import Button from "components/Buttons/LoadingButton";
+import AuthForm from "./AuthForm";
 import { validationSchema } from "./validation";
-import { initialValues, FIELD_USERNAME, FIELD_PASSWORD } from "./constants";
+import { initialValues, FIELD_PASSWORD, FIELD_USERNAME } from "./constants";
 
-const LoginPage = () => {
+export const Login = () => {
   const authError = useSelector(selectError);
   const navigate = useNavigate();
-  const loginRef = useRef(null);
   const [login, { isLoading }] = useLogin();
+  const inputRef = useRef(null);
 
   useEffect(() => {
-    loginRef.current.focus();
+    inputRef.current.focus();
   }, []);
 
   const { handleSubmit, handleChange, values, errors } = useFormik({
@@ -26,17 +28,25 @@ const LoginPage = () => {
     onSubmit: async (values, { setErrors }) => {
       setErrors({});
       await login(values).unwrap();
-      navigate(ROUTES.MAIN_PAGE);
+      navigate(PAGES.MAIN);
     },
   });
 
-  const userFieldErrors = errors[FIELD_USERNAME];
-  const passwordFieldErrors = errors[FIELD_PASSWORD] || authError;
+  const extraErrors = {
+    ...errors,
+    ...(authError && { [FIELD_PASSWORD]: authError }),
+  };
+
+  const footer = {
+    text: "Нет аккаунта?",
+    action: "Регистрация",
+    href: PAGES.SIGNUP,
+  };
 
   return (
-    <Wrapper>
-      <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={handleSubmit}>
-        <h1 className="text-center mb-4">Войти</h1>
+    <AuthForm img={loginImg} footer={footer}>
+      <Form className="mt-3 mt-mb-0" onSubmit={handleSubmit}>
+        <Card.Title>Вход</Card.Title>
         <Form.Group className="form-floating mb-3">
           <Form.Control
             className="form-control"
@@ -46,12 +56,12 @@ const LoginPage = () => {
             value={values[FIELD_USERNAME]}
             autoComplete="username"
             placeholder="Ваш ник"
-            ref={loginRef}
-            isInvalid={!!userFieldErrors}
+            ref={inputRef}
+            isInvalid={!!extraErrors[FIELD_USERNAME]}
           />
           <Form.Label htmlFor="username">Ваш ник</Form.Label>
           <Form.Control.Feedback type="invalid">
-            {userFieldErrors}
+            {extraErrors[FIELD_USERNAME]}
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="form-floating mb-3">
@@ -64,19 +74,25 @@ const LoginPage = () => {
             value={values[FIELD_PASSWORD]}
             autoComplete="current-pasword"
             placeholder="Пароль"
-            isInvalid={!!passwordFieldErrors}
+            isInvalid={!!extraErrors[FIELD_PASSWORD]}
           />
           <Form.Label htmlFor="password">Пароль</Form.Label>
           <Form.Control.Feedback type="invalid">
-            {passwordFieldErrors}
+            {extraErrors[FIELD_PASSWORD]}
           </Form.Control.Feedback>
         </Form.Group>
-        <Button className="w-100 mb-3" type="submit" variant="outline-primary">
+        <Button
+          isLoading={isLoading}
+          disabled={isLoading}
+          className="w-100 mb-3"
+          type="submit"
+          variant="outline-primary"
+        >
           Логин
         </Button>
       </Form>
-    </Wrapper>
+    </AuthForm>
   );
 };
 
-export default LoginPage;
+export default Login;

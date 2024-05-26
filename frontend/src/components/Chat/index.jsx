@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectCurrentChannel } from "api/channelsApi";
-import { selectCurrentMessages } from "api/messagesApi";
+import { selectCurrentChannel } from "services/channelsApi";
+import { selectCurrentMessages } from "services/messagesApi";
 import Message from "./Message";
 import MessageForm from "./MessageForm";
 import ChatHeader from "./ChatHeader";

@@ -1,5 +1,5 @@
 import { createSlice, createSelector } from "@reduxjs/toolkit";
-import channelsApi from "api/channelsApi.js";
+import channelsApi from "services/channelsApi.js";
 import { DEFAULT_CHANNEL_ID } from "./constants.js";
 
 const initialState = {

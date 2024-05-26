@@ -1,12 +1,12 @@
-import { Button } from "react-bootstrap";
-import { useDeleteChannel } from "api/channelsApi";
+import { useDeleteChannel } from "services/channelsApi";
+import Button from "components/Buttons/LoadingButton";
 import { Fragment } from "react";
 
-export const DeleteForm = ({ handleClose, channel }) => {
-  const [deleteChannel, { error, isLoading }] = useDeleteChannel();
+const DeleteForm = ({ handleClose, channel }) => {
+  const [deleteChannel, { isLoading }] = useDeleteChannel();
 
-  const handaleDelete = () => {
-    deleteChannel(channel);
+  const handaleDelete = async () => {
+    await deleteChannel(channel);
     handleClose();
   };
 
@@ -22,7 +22,13 @@ export const DeleteForm = ({ handleClose, channel }) => {
         >
           Отменить
         </Button>
-        <Button variant="danger" type="button" onClick={handaleDelete}>
+        <Button
+          variant="danger"
+          type="button"
+          disabled={isLoading}
+          isLoading={isLoading}
+          onClick={handaleDelete}
+        >
           Удалить
         </Button>
       </div>
