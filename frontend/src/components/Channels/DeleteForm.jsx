@@ -1,8 +1,10 @@
 import { useDeleteChannel } from "services/channelsApi";
+import { useTranslation } from 'react-i18next';
 import Button from "components/Buttons/LoadingButton";
 import { Fragment } from "react";
 
 const DeleteForm = ({ handleClose, channel }) => {
+  const { t } = useTranslation();
   const [deleteChannel, { isLoading }] = useDeleteChannel();
 
   const handaleDelete = async () => {
@@ -12,7 +14,7 @@ const DeleteForm = ({ handleClose, channel }) => {
 
   return (
     <Fragment>
-      <p className="lead">Вы уверены?</p>
+      <p className="lead">{t('channels.deleteForm.areYouSure')}</p>
       <div className="d-flex justify-content-end">
         <Button
           className="me-2"
@@ -20,7 +22,7 @@ const DeleteForm = ({ handleClose, channel }) => {
           type="button"
           onClick={handleClose}
         >
-          Отменить
+          {t('global.cancel')}
         </Button>
         <Button
           variant="danger"
@@ -29,7 +31,7 @@ const DeleteForm = ({ handleClose, channel }) => {
           isLoading={isLoading}
           onClick={handaleDelete}
         >
-          Удалить
+          {t('global.delete')}
         </Button>
       </div>
     </Fragment>

@@ -2,12 +2,14 @@ import React, { useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { Form } from "react-bootstrap";
+import { useTranslation } from 'react-i18next';
 import { selectChannelsNames, useAddChannel } from "services/channelsApi";
 import Button from "components/Buttons/LoadingButton";
 import { getValidationSchema } from "./validation";
 import { FIELD_NAME, initialValues } from "./constants";
 
 const AddForm = ({ handleClose }) => {
+  const { t } = useTranslation();
   const names = useSelector(selectChannelsNames);
   const inputRef = useRef(null);
   const [addChannel, { isLoading }] = useAddChannel();
@@ -57,10 +59,10 @@ const AddForm = ({ handleClose }) => {
           isInvalid={extraErrors[FIELD_NAME]}
         />
         <label className="visually-hidden" htmlFor={FIELD_NAME}>
-          Название канала
+          {t('channels.global.channelName')}
         </label>
         <Form.Control.Feedback type="invalid">
-          {extraErrors[FIELD_NAME]}
+          {t(`channels.addForm.error.${extraErrors[FIELD_NAME]}`)}
         </Form.Control.Feedback>
         <div className="d-flex justify-content-end">
           <Button
@@ -70,7 +72,7 @@ const AddForm = ({ handleClose }) => {
             onClick={handleClose}
             disabled={isSubmitting}
           >
-            Отменить
+            {t('global.cancel')}
           </Button>
           <Button
             isLoading={isLoading}
@@ -78,7 +80,7 @@ const AddForm = ({ handleClose }) => {
             type="submit"
             disabled={isSubmitDisabled}
           >
-            Сохранить
+            {t('global.submit')}
           </Button>
         </div>
       </Form.Group>

@@ -1,13 +1,15 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { Form } from "react-bootstrap";
+import { useTranslation } from 'react-i18next';
 import { selectChannelsNames, useUpdateChannel } from "services/channelsApi";
 import { getValidationSchema } from "./validation";
 import { FIELD_NAME } from "./constants";
 import Button from "components/Buttons/LoadingButton";
 
 const RenameForm = ({ handleClose, channel }) => {
+  const { t } = useTranslation();
   const names = useSelector(selectChannelsNames);
   const inputRef = useRef(null);
   const [renameChannel, { isLoading }] = useUpdateChannel();
@@ -64,10 +66,10 @@ const RenameForm = ({ handleClose, channel }) => {
           isInvalid={!!extraErrors[FIELD_NAME]}
         />
         <Form.Label className="visually-hidden" htmlFor={FIELD_NAME}>
-          Название канала
+          {t('channels.global.channelName')}
         </Form.Label>
         <Form.Control.Feedback type="invalid">
-          {extraErrors[FIELD_NAME]}
+          {t(`channels.renameForm.error.${extraErrors[FIELD_NAME]}`)}
         </Form.Control.Feedback>
         <div className="d-flex justify-content-end">
           <Button
@@ -77,7 +79,7 @@ const RenameForm = ({ handleClose, channel }) => {
             disabled={isSubmitting}
             onClick={handleClose}
           >
-            Отменить
+            {t('global.cancel')}
           </Button>
           <Button
             type="submit"
@@ -85,7 +87,7 @@ const RenameForm = ({ handleClose, channel }) => {
             disabled={isSubmitDisabled}
             isLoading={isLoading}
           >
-            Сохранить
+            {t('global.submit')}
           </Button>
         </div>
       </Form.Group>

@@ -1,6 +1,7 @@
 import { createSlice, createSelector } from "@reduxjs/toolkit";
 import authApi from "services/authApi";
 import { STORAGE_APP_NAME } from "./constants";
+import { getError } from "./helpers";
 
 const initialState = {
   token: "",
@@ -55,7 +56,7 @@ const authSlice = createSlice({
         const newState = {
           ...initialState,
           isError: true,
-          error: payload?.data?.message ?? "unknown",
+          error: getError(payload?.data?.error),
         };
         Object.assign(state, newState);
       }
@@ -78,7 +79,7 @@ const authSlice = createSlice({
         const newState = {
           ...initialState,
           isError: true,
-          error: payload?.data?.message ?? "unknown",
+          error: getError(payload?.data?.error),
         };
         Object.assign(state, newState);
       }

@@ -3,21 +3,23 @@ import { useSelector } from "react-redux";
 import { Form, Card } from "react-bootstrap";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import { useSignup } from "services/authApi";
 import { selectError } from "redux/slices/authSlice";
 import PAGES from "configs/routs";
 import signupImg from "assets/signup.jpg";
 import Button from "components/Buttons/LoadingButton";
 import AuthForm from "./AuthForm";
-import { validationSchema } from "./validation";
+import { signupValidationSchema as validationSchema } from "./validation";
 import {
-  initialValues,
+  signupInitialValues as initialValues,
   FIELD_PASSWORD,
   FIELD_USERNAME,
   FIELD_CONFIRM_PASSWORD,
 } from "./constants";
 
-export const Signup = () => {
+const Signup = () => {
+  const { t } = useTranslation();
   const authError = useSelector(selectError);
   const navigate = useNavigate();
   const [signup, { isLoading }] = useSignup();
@@ -39,13 +41,13 @@ export const Signup = () => {
 
   const extraErrors = {
     ...errors,
-    [FIELD_CONFIRM_PASSWORD]: authError,
+    ...(authError && { [FIELD_CONFIRM_PASSWORD]: authError }),
   };
 
   return (
     <AuthForm img={signupImg}>
       <Form className="mt-3 mt-mb-0" onSubmit={handleSubmit}>
-        <Card.Title>Вход</Card.Title>
+        <Card.Title>{t('auth.signupForm.registration')}</Card.Title>
         <Form.Group className="form-floating mb-3">
           <Form.Control
             className="form-control"
@@ -54,13 +56,13 @@ export const Signup = () => {
             onChange={handleChange}
             value={values[FIELD_USERNAME]}
             autoComplete="username"
-            placeholder="Ваш ник"
+            placeholder={t('auth.signupForm.yourNickname')}
             ref={inputRef}
             isInvalid={!!extraErrors[FIELD_USERNAME]}
           />
-          <Form.Label htmlFor="username">Ваш ник</Form.Label>
+          <Form.Label htmlFor="username">{t('auth.signupForm.yourNickname')}</Form.Label>
           <Form.Control.Feedback type="invalid">
-            {extraErrors[FIELD_USERNAME]}
+            {t(`auth.signupForm.error.${extraErrors[FIELD_USERNAME]}`)}
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="form-floating mb-3">
@@ -72,12 +74,12 @@ export const Signup = () => {
             onChange={handleChange}
             value={values[FIELD_PASSWORD]}
             autoComplete="current-pasword"
-            placeholder="Пароль"
+            placeholder={t('auth.signupForm.password')}
             isInvalid={!!extraErrors[FIELD_PASSWORD]}
           />
-          <Form.Label htmlFor="password">Пароль</Form.Label>
+          <Form.Label htmlFor="password">{t('auth.signupForm.password')}</Form.Label>
           <Form.Control.Feedback type="invalid">
-            {extraErrors[FIELD_PASSWORD]}
+            {t(`auth.signupForm.error.${extraErrors[FIELD_PASSWORD]}`)}
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="form-floating mb-3">
@@ -89,12 +91,12 @@ export const Signup = () => {
             onChange={handleChange}
             value={values[FIELD_CONFIRM_PASSWORD]}
             autoComplete="current-pasword"
-            placeholder="Пароль"
+            placeholder={t('auth.signupForm.confirmPassword')}
             isInvalid={!!extraErrors[FIELD_CONFIRM_PASSWORD]}
           />
-          <Form.Label htmlFor="password">Пароль</Form.Label>
+          <Form.Label htmlFor="password">{t('auth.signupForm.confirmPassword')}</Form.Label>
           <Form.Control.Feedback type="invalid">
-            {extraErrors[FIELD_CONFIRM_PASSWORD]}
+            {t(`auth.signupForm.error.${extraErrors[FIELD_CONFIRM_PASSWORD]}`)}
           </Form.Control.Feedback>
         </Form.Group>
         <Button
@@ -104,7 +106,7 @@ export const Signup = () => {
           type="submit"
           variant="outline-primary"
         >
-          Зарегистрироваться
+          {t('auth.signupForm.register')}
         </Button>
       </Form>
     </AuthForm>

@@ -1,6 +1,6 @@
 import { ModalBody } from "react-bootstrap";
 
-export const Body = ({ component, handleClose, modalProps = {} }) => {
+const Body = ({ component, handleClose, modalProps = {} }) => {
   const Component = component;
 
   return (

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { Form, InputGroup, Button } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { ArrowRightSquare } from "react-bootstrap-icons";
 import { selectCurrentChannel } from "services/channelsApi";
 import { selectUser } from "redux/slices/authSlice";
@@ -10,14 +11,11 @@ import { initialValues, FIELD_MESSAGE } from "./constants";
 import { validationSchema } from "./validation";
 
 const MessageForm = () => {
+  const { t } = useTranslation();
   const [addMessage, { isLoading }] = useAddMessage();
   const channel = useSelector(selectCurrentChannel);
   const username = useSelector(selectUser);
-  const formRef = useRef(null);
-
-  useEffect(() => {
-    formRef.current.focus();
-  }, []);
+  const inputRef = useRef(null);
 
   const {
     handleSubmit,
@@ -42,9 +40,12 @@ const MessageForm = () => {
       await addMessage(message);
       resetForm();
       setSubmitting(false);
-      formRef.current.focus();
     },
   });
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [channel, isSubmitting]);
 
   const isInvalid = !dirty || !isValid;
 
@@ -53,13 +54,14 @@ const MessageForm = () => {
       <InputGroup hasValidation={isInvalid}>
         <Form.Control
           className="border rounded-end-0"
-          ref={formRef}
+          ref={inputRef}
           name={FIELD_MESSAGE}
           onChange={handleChange}
           onBlur={handleBlur}
           value={values[FIELD_MESSAGE]}
           disabled={isSubmitting}
-          placeholder="Введите сообщение"
+          area-label={t('chat.newMessage')}
+          placeholder={t('chat.typeYourMessage')}
         />
         <Button
           variant="group-vertical"
@@ -67,7 +69,7 @@ const MessageForm = () => {
           disabled={isInvalid || isLoading}
         >
           <ArrowRightSquare size={20} />
-          <span className="visually-hidden">Отправить</span>
+          <span className="visually-hidden">{t('global.submit')}</span>
         </Button>
       </InputGroup>
     </Form>

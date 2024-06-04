@@ -3,7 +3,7 @@ import { useModal } from "context/ModalContext";
 import Body from "./Body";
 import Header from "./Header";
 
-export const BaseModal = () => {
+const BaseModal = () => {
   const { config, closeModal } = useModal();
 
   if (!config) return null;

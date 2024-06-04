@@ -12,7 +12,7 @@ const Chat = () => {
 
   return (
     <div className="d-flex flex-column h-100">
-      <ChatHeader channelName={channel?.name} messagesCount={messages.length} />
+      <ChatHeader channelName={channel?.name} count={messages.length} />
       <div className="chat-messages overflow-auto px-5 ">
         {messages.map(({ id, username, body }) => (
           <Message key={id} username={username} body={body} />

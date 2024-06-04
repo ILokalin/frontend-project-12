@@ -1,13 +1,15 @@
 import { Button, Dropdown, ButtonGroup } from "react-bootstrap";
+import { useTranslation } from 'react-i18next';
 import { ATTRIBUTE_REMOVABLE } from "./constants";
 
 const Channel = ({
   channel,
   isCurrent,
   handleSelect,
-  handleRemove,
+  handleDelete,
   handleRename,
 }) => {
+  const { t } = useTranslation();
   const variant = isCurrent ? "secondary" : "";
   const isRemovable = channel[ATTRIBUTE_REMOVABLE];
 
@@ -29,11 +31,11 @@ const Channel = ({
             className="flex-grow-0 rounded-0"
             variant={variant}
           >
-            <span className="visually-hidden">Управление каналом</span>
+            <span className="visually-hidden">{t('channels.channelControl')}</span>
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item onClick={handleRemove}>Удалить</Dropdown.Item>
-            <Dropdown.Item onClick={handleRename}>Переименовать</Dropdown.Item>
+            <Dropdown.Item onClick={handleDelete}>{t('channels.delete')}</Dropdown.Item>
+            <Dropdown.Item onClick={handleRename}>{t('channels.rename')}</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       ) : (

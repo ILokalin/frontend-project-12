@@ -1,18 +1,27 @@
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
+import i18next from "i18next";
+import { I18nextProvider, initReactI18next } from "react-i18next";
 import { Provider as RollbarProvider, ErrorBoundary } from "@rollbar/react";
 import { io } from "socket.io-client";
 import channelsApi from "services/channelsApi";
 import messagesApi from "services/messagesApi";
 import { setCurrentChannel } from "redux/slices/uiSlice";
-import App from "./App";
-import { rollbarConfig } from "./configs/rollbar";
-import store from "./redux/store";
+import resources from "locales/index.js";
+import { rollbarConfig } from "configs/rollbar";
+import store from "redux/store";
 import { ModalProvider } from "context/ModalContext";
 import Modal from "components/Modal";
+import App from "./App";
 
-const init = () => {
+const init = async () => {
   const socket = io();
+
+  const i18n = i18next.createInstance();
+  await i18n.use(initReactI18next).init({
+    resources,
+    fallbackLng: "ru",
+  });
 
   const listenerNewChannel = (payload) => {
     store.dispatch(
@@ -77,16 +86,18 @@ const init = () => {
 
   return (
     <Provider store={store}>
-      <RollbarProvider config={rollbarConfig}>
-        <ErrorBoundary>
-          <Router>
-            <ModalProvider>
-              <App />
-              <Modal />
-            </ModalProvider>
-          </Router>
-        </ErrorBoundary>
-      </RollbarProvider>
+      <I18nextProvider i18n={i18n}>
+        <RollbarProvider config={rollbarConfig}>
+          <ErrorBoundary>
+            <Router>
+              <ModalProvider>
+                <App />
+                <Modal />
+              </ModalProvider>
+            </Router>
+          </ErrorBoundary>
+        </RollbarProvider>
+      </I18nextProvider>
     </Provider>
   );
 };

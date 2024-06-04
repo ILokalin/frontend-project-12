@@ -2,7 +2,7 @@ import { Col, Row, Card } from "react-bootstrap";
 import Wrapper from "components/Wrapper";
 import PAGES from "configs/routs";
 
-export const AuthForm = ({ img, children, footer, isLoading }) => (
+const AuthForm = ({ img, children, footer, isLoading }) => (
   <Wrapper isForm isLoading={isLoading}>
     <Row className="justify-content-center align-content-center h-100">
       <Col xs="12" xxl="6" md="8">

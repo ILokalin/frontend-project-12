@@ -3,16 +3,22 @@ import { useSelector } from "react-redux";
 import { Form, Card } from "react-bootstrap";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useLogin } from "services/authApi";
 import { selectError } from "redux/slices/authSlice";
 import PAGES from "configs/routs";
 import loginImg from "assets/login.jpg";
 import Button from "components/Buttons/LoadingButton";
 import AuthForm from "./AuthForm";
-import { validationSchema } from "./validation";
-import { initialValues, FIELD_PASSWORD, FIELD_USERNAME } from "./constants";
+import { loginValidationSchema as validationSchema } from "./validation";
+import {
+  loginInitialValues as initialValues,
+  FIELD_PASSWORD,
+  FIELD_USERNAME,
+} from "./constants";
 
-export const Login = () => {
+const Login = () => {
+  const { t } = useTranslation();
   const authError = useSelector(selectError);
   const navigate = useNavigate();
   const [login, { isLoading }] = useLogin();
@@ -38,15 +44,15 @@ export const Login = () => {
   };
 
   const footer = {
-    text: "Нет аккаунта?",
-    action: "Регистрация",
+    text: t("auth.loginForm.dontHaveAccount"),
+    action: t("auth.signupForm.registration"),
     href: PAGES.SIGNUP,
   };
 
   return (
     <AuthForm img={loginImg} footer={footer}>
       <Form className="mt-3 mt-mb-0" onSubmit={handleSubmit}>
-        <Card.Title>Вход</Card.Title>
+        <Card.Title>{t("auth.loginForm.login")}</Card.Title>
         <Form.Group className="form-floating mb-3">
           <Form.Control
             className="form-control"
@@ -55,13 +61,15 @@ export const Login = () => {
             onChange={handleChange}
             value={values[FIELD_USERNAME]}
             autoComplete="username"
-            placeholder="Ваш ник"
+            placeholder={t("auth.loginForm.yourNickname")}
             ref={inputRef}
             isInvalid={!!extraErrors[FIELD_USERNAME]}
           />
-          <Form.Label htmlFor="username">Ваш ник</Form.Label>
+          <Form.Label htmlFor="username">
+            {t("auth.loginForm.yourNickname")}
+          </Form.Label>
           <Form.Control.Feedback type="invalid">
-            {extraErrors[FIELD_USERNAME]}
+            {t(`auth.loginForm.error.${extraErrors[FIELD_USERNAME]}`)}
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="form-floating mb-3">
@@ -73,12 +81,14 @@ export const Login = () => {
             onChange={handleChange}
             value={values[FIELD_PASSWORD]}
             autoComplete="current-pasword"
-            placeholder="Пароль"
+            placeholder={t("auth.loginForm.password")}
             isInvalid={!!extraErrors[FIELD_PASSWORD]}
           />
-          <Form.Label htmlFor="password">Пароль</Form.Label>
+          <Form.Label htmlFor="password">
+            {t("auth.loginForm.password")}
+          </Form.Label>
           <Form.Control.Feedback type="invalid">
-            {extraErrors[FIELD_PASSWORD]}
+            {t(`auth.loginForm.error.${extraErrors[FIELD_PASSWORD]}`)}
           </Form.Control.Feedback>
         </Form.Group>
         <Button
@@ -88,7 +98,7 @@ export const Login = () => {
           type="submit"
           variant="outline-primary"
         >
-          Логин
+          {t("auth.loginForm.login")}
         </Button>
       </Form>
     </AuthForm>

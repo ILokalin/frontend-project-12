@@ -5,13 +5,13 @@ export const getValidationSchema = (channels) =>
     name: yup
       .string()
       .trim()
-      .required()
-      .min(3)
-      .max(20)
-      .notOneOf(channels)
+      .required("requiredField")
+      .min(3, "min")
+      .max(20, "max")
+      .notOneOf(channels, "mustBeUnique")
       .test(
         "no-leading-spaces",
-        "Field cannot have leading spaces",
+        "removeLeadSpaces",
         (_, { originalValue }) => !/^\s/.test(originalValue)
       ),
   });
