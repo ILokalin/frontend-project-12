@@ -9,6 +9,7 @@ import { selectUser } from "redux/slices/authSlice";
 import { useAddMessage } from "services/messagesApi";
 import { initialValues, FIELD_MESSAGE } from "./constants";
 import { validationSchema } from "./validation";
+import { filterProfanity } from "./profanityFilter";
 
 const MessageForm = () => {
   const { t } = useTranslation();
@@ -33,7 +34,7 @@ const MessageForm = () => {
     validateOnBlur: false,
     onSubmit: async (formData) => {
       const message = {
-        body: formData[FIELD_MESSAGE],
+        body: filterProfanity(formData[FIELD_MESSAGE]),
         channelId: channel.id,
         username,
       };
