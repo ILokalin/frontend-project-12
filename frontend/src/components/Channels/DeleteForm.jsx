@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useDeleteChannel } from 'services/channelsApi';
@@ -14,7 +13,7 @@ const DeleteForm = ({ handleClose, channel }) => {
     if (isSuccess) {
       toast.success(t(`channels.сhannelDeletedSuccessfully`));
     }
-  }, [isSuccess]);
+  }, [isSuccess, t]);
 
   const handaleDelete = async () => {
     await deleteChannel(channel);

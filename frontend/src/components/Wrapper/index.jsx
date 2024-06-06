@@ -22,7 +22,7 @@ const Wrapper = ({ isLoading, children, isPage }) => {
     if (isUiError) {
       toast.error(t(`global.error.${uiError}`));
     }
-  }, [uiError, isUiError]);
+  }, [uiError, isUiError, t]);
 
   return (
     <div className={getWrapperClass(isPage)}>

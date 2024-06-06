@@ -23,7 +23,7 @@ const RenameForm = ({ handleClose, channel }) => {
     if (isSuccess) {
       toast.success(t(`channels.сhannelRenamedSuccessfully`));
     }
-  }, [isSuccess]);
+  }, [isSuccess, t]);
 
   const {
     isSubmitting,

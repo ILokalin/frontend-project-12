@@ -8,23 +8,23 @@ import {
 const ModalContext = createContext();
 
 export const ModalProvider = ({ children }) => {
-  const [modalConfig, setModalConfig] = useState(null);
+  const [config, setConfig] = useState(null);
 
-  const openModal = (config) => {
-    setModalConfig(config);
+  const openModal = (data) => {
+    setConfig(data);
   };
 
   const closeModal = () => {
-    setModalConfig(null);
+    setConfig(null);
   };
 
   const value = useMemo(
     () => ({
-      modalConfig,
+      config,
       openModal,
       closeModal,
     }),
-    [modalConfig],
+    [config],
   );
 
   return (

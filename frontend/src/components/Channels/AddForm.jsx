@@ -23,7 +23,7 @@ const AddForm = ({ handleClose }) => {
     if (isSuccess) {
       toast.success(t(`channels.сhannelAddedSuccessfully`));
     }
-  }, [isSuccess]);
+  }, [isSuccess, t]);
 
   const {
     isSubmitting,
