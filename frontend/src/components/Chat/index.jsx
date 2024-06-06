@@ -1,12 +1,15 @@
-import React from "react";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 import { selectCurrentChannel } from "services/channelsApi";
 import { selectCurrentMessages } from "services/messagesApi";
+import { selectUiError, selectIsUiError } from "redux/slices/uiSelectors";
 import Message from "./Message";
 import MessageForm from "./MessageForm";
 import ChatHeader from "./ChatHeader";
 
 const Chat = () => {
+  const { t } = useTranslation();
   const channel = useSelector(selectCurrentChannel);
   const messages = useSelector(selectCurrentMessages);
 

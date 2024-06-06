@@ -1,5 +1,5 @@
 import { Button, Spinner } from "react-bootstrap";
-import classNames from 'classnames';
+import classNames from "classnames";
 
 const LoadingButton = ({
   children,

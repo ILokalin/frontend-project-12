@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { createSelector } from "@reduxjs/toolkit";
 import ROUTES from "./apiConfig";
-import { selectCurrentChannelId } from "redux/slices/uiSlice";
+import { selectCurrentChannelId } from "redux/slices/uiSelectors";
 import { prepareHeaders } from "./helpers";
 
 const baseQuery = fetchBaseQuery({

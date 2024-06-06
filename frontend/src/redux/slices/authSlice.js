@@ -1,13 +1,26 @@
 import { createSlice, createSelector } from "@reduxjs/toolkit";
 import authApi from "services/authApi";
 import { STORAGE_APP_NAME } from "./constants";
-import { getError } from "./helpers";
+import { clearError, extractAuthError } from "./helpers";
 
 const initialState = {
   token: "",
   username: "",
   isError: false,
   error: "",
+};
+
+export const setError = (state, { payload }) => {
+  const error = extractAuthError(payload?.status);
+  if (!error) {
+    clearError(state);
+    return;
+  }
+
+  Object.assign(state, {
+    error,
+    isError: true,
+  });
 };
 
 const prepareInitialState = () => {
@@ -32,58 +45,32 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addMatcher(
-      authApi.endpoints.login.matchPending,
-      (state) => {
-        Object.assign(state, initialState);
-      }
-    );
+    builder.addMatcher(authApi.endpoints.login.matchPending, clearError);
     builder.addMatcher(
       authApi.endpoints.login.matchFulfilled,
       (state, { payload }) => {
-        const newState = {
+        Object.assign(state, {
           ...initialState,
           token: payload.token,
           username: payload.username,
-        };
-        Object.assign(state, newState);
+        });
         localStorage.setItem(STORAGE_APP_NAME, JSON.stringify(payload));
       }
     );
-    builder.addMatcher(
-      authApi.endpoints.login.matchRejected,
-      (state, { payload }) => {
-        const newState = {
-          ...initialState,
-          isError: true,
-          error: getError(payload?.data?.error),
-        };
-        Object.assign(state, newState);
-      }
-    );
+    builder.addMatcher(authApi.endpoints.login.matchRejected, setError);
+    builder.addMatcher(authApi.endpoints.signup.matchPending, clearError);
     builder.addMatcher(
       authApi.endpoints.signup.matchFulfilled,
       (state, { payload }) => {
-        const newState = {
+        Object.assign(state, {
           ...initialState,
           token: payload.token,
           username: payload.username,
-        };
-        Object.assign(state, newState);
+        });
         localStorage.setItem(STORAGE_APP_NAME, JSON.stringify(payload));
       }
     );
-    builder.addMatcher(
-      authApi.endpoints.signup.matchRejected,
-      (state, { payload }) => {
-        const newState = {
-          ...initialState,
-          isError: true,
-          error: getError(payload?.data?.error),
-        };
-        Object.assign(state, newState);
-      }
-    );
+    builder.addMatcher(authApi.endpoints.signup.matchRejected, setError);
   },
 });
 
@@ -101,19 +88,19 @@ export const selectToken = createSelector(
   (authState) => authState.token
 );
 
-export const selectIsError = createSelector(
+export const selectIsAuthError = createSelector(
   selectAuth,
   (authState) => authState.isError
 );
 
-export const selectError = createSelector(
+export const selectAuthError = createSelector(
   selectAuth,
   (authState) => authState.error
 );
 
 export const selectIsAuth = createSelector(
   selectToken,
-  selectIsError,
+  selectIsAuthError,
   (token, isError) => Boolean(token) && !isError
 );
 

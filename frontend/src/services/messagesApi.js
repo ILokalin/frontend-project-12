@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { createSelector } from "@reduxjs/toolkit";
 import ROUTES from "./apiConfig";
-import { selectCurrentChannelId } from "redux/slices/uiSlice";
+import { selectCurrentChannelId } from "redux/slices/uiSelectors";
 import { prepareHeaders } from "./helpers";
 
 const baseQuery = fetchBaseQuery({
@@ -24,18 +24,6 @@ const messagesApi = createApi({
       query: () => "",
       providesTags: ["Messages"],
     }),
-    updateMessage: builder.mutation({
-      query: (message) => ({
-        method: "PATCH",
-        body: message,
-      }),
-    }),
-    deleteMessage: builder.mutation({
-      query: (id) => ({
-        url: id,
-        method: "DELETE",
-      }),
-    }),
   }),
 });
 
@@ -55,8 +43,6 @@ export const selectCurrentMessages = createSelector(
 export const {
   useAddMessageMutation: useAddMessage,
   useGetMessagesQuery: useGetMessages,
-  useUpdateMessageMutation: useUpdateMessage,
-  useDeleteMessageMutation: useDeleteMessage,
 } = messagesApi;
 
 export default messagesApi;

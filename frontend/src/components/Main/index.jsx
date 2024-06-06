@@ -1,4 +1,3 @@
-import React from "react";
 import Wrapper from "components/Wrapper";
 import Channels from "components/Channels";
 import { useGetMessages } from "services/messagesApi";

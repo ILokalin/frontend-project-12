@@ -1,6 +1,5 @@
 import { Col, Row, Card } from "react-bootstrap";
 import Wrapper from "components/Wrapper";
-import PAGES from "configs/routs";
 
 const AuthForm = ({ img, children, footer, isLoading }) => (
   <Wrapper isForm isLoading={isLoading}>
@@ -21,11 +20,14 @@ const AuthForm = ({ img, children, footer, isLoading }) => (
               </Col>
             </Row>
           </Card.Body>
-          {footer && <Card.Footer className="p-4">
-            <div className="text-center">
-              <span>{footer.text}</span> <a href={footer.href}>{footer.action}</a>
-            </div>
-          </Card.Footer>}
+          {footer && (
+            <Card.Footer className="p-4">
+              <div className="text-center">
+                <span>{footer.text}</span>{" "}
+                <a href={footer.href}>{footer.action}</a>
+              </div>
+            </Card.Footer>
+          )}
         </Card>
       </Col>
     </Row>

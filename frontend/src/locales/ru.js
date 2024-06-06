@@ -6,6 +6,10 @@ const ru = {
       submit: "Отправить",
       delete: "Удалить",
       channelName: "Имя канала",
+      error: {
+        network: "Ошибка сети",
+        unknown: "Неизвестная ошибка",
+      }
     },
     header: {
       logout: "Выйти",
@@ -14,7 +18,6 @@ const ru = {
       loginForm: {
         error: {
           invalidUsernameOrPassword: "Неверные имя пользователя или пароль",
-          unknown: "Неизвестная ошибка",
           requiredField: "Обязательное поле",
         },
         yourNickname: "Ваш ник",
@@ -24,7 +27,6 @@ const ru = {
       },
       signupForm: {
         error: {
-          unknown: "Неизвестная ошибка",
           requiredField: "Обязательное поле",
           userAlreadyExist: "Такой пользователь уже существует",
           usernameLength: "От 3 до 20 символов",
@@ -45,8 +47,8 @@ const ru = {
           min: "От 3 до 20 символов",
           mustBeUnique: "Должно быть уникальным",
           removeLeadSpaces: "Исключите пробелы перед названием",
-          requiredField: "Обязательное поле"
-        }
+          requiredField: "Обязательное поле",
+        },
       },
       deleteForm: {
         deleteChannel: "Удалить канал",
@@ -58,14 +60,17 @@ const ru = {
           min: "От 3 до 20 символов",
           mustBeUnique: "Должно быть уникальным",
           removeLeadSpaces: "Исключите пробелы перед названием",
-          requiredField: "Обязательное поле"
-        }
+          requiredField: "Обязательное поле",
+        },
       },
       channels: "Каналы",
       addChannel: "Добавить канал",
       rename: "Переименовать",
       delete: "Удалить",
       channelControl: "Управление каналом",
+      сhannelAddedSuccessfully: "Канал успешно добавлен",
+      сhannelDeletedSuccessfully: "Канал успешно удален",
+      сhannelRenamedSuccessfully: "Канал успешно переименован",
     },
     chat: {
       typeYourMessage: "Введите сообщение...",

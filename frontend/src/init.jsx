@@ -1,5 +1,4 @@
 import { Provider } from "react-redux";
-import { BrowserRouter as Router } from "react-router-dom";
 import i18next from "i18next";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import { Provider as RollbarProvider, ErrorBoundary } from "@rollbar/react";
@@ -11,8 +10,8 @@ import resources from "locales/index.js";
 import { rollbarConfig } from "configs/rollbar";
 import store from "redux/store";
 import { ModalProvider } from "context/ModalContext";
-import Modal from "components/Modal";
 import App from "./App";
+import "react-toastify/dist/ReactToastify.css";
 
 const init = async () => {
   const socket = io();
@@ -89,12 +88,9 @@ const init = async () => {
       <I18nextProvider i18n={i18n}>
         <RollbarProvider config={rollbarConfig}>
           <ErrorBoundary>
-            <Router>
-              <ModalProvider>
+            <ModalProvider>
                 <App />
-                <Modal />
-              </ModalProvider>
-            </Router>
+            </ModalProvider>
           </ErrorBoundary>
         </RollbarProvider>
       </I18nextProvider>

@@ -12,4 +12,3 @@ export const signupInitialValues = {
   [FIELD_PASSWORD]: "",
   [FIELD_CONFIRM_PASSWORD]: "",
 };
-

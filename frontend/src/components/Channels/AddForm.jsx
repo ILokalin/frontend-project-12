@@ -1,8 +1,9 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { Form } from "react-bootstrap";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 import { selectChannelsNames, useAddChannel } from "services/channelsApi";
 import Button from "components/Buttons/LoadingButton";
 import { getValidationSchema } from "./validation";
@@ -12,11 +13,19 @@ const AddForm = ({ handleClose }) => {
   const { t } = useTranslation();
   const names = useSelector(selectChannelsNames);
   const inputRef = useRef(null);
-  const [addChannel, { isLoading }] = useAddChannel();
+  const [addChannel, { isLoading, isSuccess }] = useAddChannel();
 
   useEffect(() => {
     inputRef.current.focus();
   }, []);
+
+  useEffect(
+    () => {
+      if (isSuccess) {
+        toast.success(t(`channels.сhannelAddedSuccessfully`));
+      }
+    }, [isSuccess]
+  )
 
   const {
     isSubmitting,
@@ -59,7 +68,7 @@ const AddForm = ({ handleClose }) => {
           isInvalid={extraErrors[FIELD_NAME]}
         />
         <label className="visually-hidden" htmlFor={FIELD_NAME}>
-          {t('channels.global.channelName')}
+          {t("channels.global.channelName")}
         </label>
         <Form.Control.Feedback type="invalid">
           {t(`channels.addForm.error.${extraErrors[FIELD_NAME]}`)}
@@ -72,7 +81,7 @@ const AddForm = ({ handleClose }) => {
             onClick={handleClose}
             disabled={isSubmitting}
           >
-            {t('global.cancel')}
+            {t("global.cancel")}
           </Button>
           <Button
             isLoading={isLoading}
@@ -80,7 +89,7 @@ const AddForm = ({ handleClose }) => {
             type="submit"
             disabled={isSubmitDisabled}
           >
-            {t('global.submit')}
+            {t("global.submit")}
           </Button>
         </div>
       </Form.Group>

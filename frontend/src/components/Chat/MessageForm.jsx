@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { Form, InputGroup, Button } from "react-bootstrap";
@@ -60,8 +60,8 @@ const MessageForm = () => {
           onBlur={handleBlur}
           value={values[FIELD_MESSAGE]}
           disabled={isSubmitting}
-          area-label={t('chat.newMessage')}
-          placeholder={t('chat.typeYourMessage')}
+          area-label={t("chat.newMessage")}
+          placeholder={t("chat.typeYourMessage")}
         />
         <Button
           variant="group-vertical"
@@ -69,7 +69,7 @@ const MessageForm = () => {
           disabled={isInvalid || isLoading}
         >
           <ArrowRightSquare size={20} />
-          <span className="visually-hidden">{t('global.submit')}</span>
+          <span className="visually-hidden">{t("global.submit")}</span>
         </Button>
       </InputGroup>
     </Form>

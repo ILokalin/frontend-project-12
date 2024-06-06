@@ -28,6 +28,6 @@ export const signupValidationSchema = yup.object().shape({
     .test(
       "confirm-password",
       "passwordsMustMatch",
-      (_, { originalValue, parent }) => parent[FIELD_PASSWORD] === originalValue,
+      (_, { originalValue, parent }) => parent[FIELD_PASSWORD] === originalValue
     ),
 });

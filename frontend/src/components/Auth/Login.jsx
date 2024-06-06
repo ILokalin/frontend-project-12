@@ -1,11 +1,11 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Form, Card } from "react-bootstrap";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLogin } from "services/authApi";
-import { selectError } from "redux/slices/authSlice";
+import { selectAuthError, selectIsAuthError } from "redux/slices/authSlice";
 import PAGES from "configs/routs";
 import loginImg from "assets/login.jpg";
 import Button from "components/Buttons/LoadingButton";
@@ -19,7 +19,8 @@ import {
 
 const Login = () => {
   const { t } = useTranslation();
-  const authError = useSelector(selectError);
+  const authError = useSelector(selectAuthError);
+  const isAuthError = useSelector(selectIsAuthError);
   const navigate = useNavigate();
   const [login, { isLoading }] = useLogin();
   const inputRef = useRef(null);
@@ -40,7 +41,7 @@ const Login = () => {
 
   const extraErrors = {
     ...errors,
-    ...(authError && { [FIELD_PASSWORD]: authError }),
+    ...(isAuthError && { [FIELD_PASSWORD]: authError }),
   };
 
   const footer = {
@@ -63,14 +64,16 @@ const Login = () => {
             autoComplete="username"
             placeholder={t("auth.loginForm.yourNickname")}
             ref={inputRef}
-            isInvalid={!!extraErrors[FIELD_USERNAME]}
+            isInvalid={!!extraErrors[FIELD_USERNAME] || isAuthError}
           />
           <Form.Label htmlFor="username">
             {t("auth.loginForm.yourNickname")}
           </Form.Label>
-          <Form.Control.Feedback type="invalid">
-            {t(`auth.loginForm.error.${extraErrors[FIELD_USERNAME]}`)}
-          </Form.Control.Feedback>
+          {!isAuthError && (
+            <Form.Control.Feedback type="invalid">
+              {t(`auth.loginForm.error.${extraErrors[FIELD_USERNAME]}`)}
+            </Form.Control.Feedback>
+          )}
         </Form.Group>
         <Form.Group className="form-floating mb-3">
           <Form.Control
@@ -82,7 +85,7 @@ const Login = () => {
             value={values[FIELD_PASSWORD]}
             autoComplete="current-pasword"
             placeholder={t("auth.loginForm.password")}
-            isInvalid={!!extraErrors[FIELD_PASSWORD]}
+            isInvalid={!!extraErrors[FIELD_PASSWORD] || isAuthError}
           />
           <Form.Label htmlFor="password">
             {t("auth.loginForm.password")}
