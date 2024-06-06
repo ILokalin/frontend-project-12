@@ -23,7 +23,6 @@ const Channels = () => {
   };
 
   const handleAdd = () => {
-    debugger;
     const config = {
       header: {
         title: t('channels.addForm.addChannel'),
