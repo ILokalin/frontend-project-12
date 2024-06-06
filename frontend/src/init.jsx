@@ -1,17 +1,17 @@
-import { Provider } from "react-redux";
-import i18next from "i18next";
-import { I18nextProvider, initReactI18next } from "react-i18next";
-import { Provider as RollbarProvider, ErrorBoundary } from "@rollbar/react";
-import { io } from "socket.io-client";
-import channelsApi from "services/channelsApi";
-import messagesApi from "services/messagesApi";
-import { setCurrentChannel } from "redux/slices/uiSlice";
-import resources from "locales/index.js";
-import { rollbarConfig } from "configs/rollbar";
-import store from "redux/store";
-import { ModalProvider } from "context/ModalContext";
-import App from "./App";
-import "react-toastify/dist/ReactToastify.css";
+import { Provider } from 'react-redux';
+import i18next from 'i18next';
+import { I18nextProvider, initReactI18next } from 'react-i18next';
+import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
+import { io } from 'socket.io-client';
+import channelsApi from 'services/channelsApi';
+import messagesApi from 'services/messagesApi';
+import { setCurrentChannel } from 'redux/slices/uiSlice';
+import resources from 'locales/index.js';
+import { rollbarConfig } from 'configs/rollbar';
+import store from 'redux/store';
+import { ModalProvider } from 'context/ModalContext';
+import App from './App';
+import 'react-toastify/dist/ReactToastify.css';
 
 const init = async () => {
   const socket = io();
@@ -19,13 +19,13 @@ const init = async () => {
   const i18n = i18next.createInstance();
   await i18n.use(initReactI18next).init({
     resources,
-    fallbackLng: "ru",
+    fallbackLng: 'ru',
   });
 
   const listenerNewChannel = (payload) => {
     store.dispatch(
       channelsApi.util.updateQueryData(
-        "getChannels",
+        'getChannels',
         undefined,
         (draftChannels) => {
           draftChannels.push(payload);
@@ -41,7 +41,7 @@ const init = async () => {
     }
     store.dispatch(
       channelsApi.util.updateQueryData(
-        "getChannels",
+        'getChannels',
         undefined,
         (draftChannels) => {
           return draftChannels.filter(({ id }) => id !== payload.id);
@@ -53,7 +53,7 @@ const init = async () => {
   const listenerRenameChannel = (payload) => {
     store.dispatch(
       channelsApi.util.updateQueryData(
-        "getChannels",
+        'getChannels',
         undefined,
         (draftChannels) => {
           const channel = draftChannels.find((item) => item.id === payload.id);
@@ -69,7 +69,7 @@ const init = async () => {
   const listenerNewMessage = (payload) => {
     store.dispatch(
       messagesApi.util.updateQueryData(
-        "getMessages",
+        'getMessages',
         undefined,
         (draftMessage) => {
           draftMessage.push(payload);
@@ -78,10 +78,10 @@ const init = async () => {
     );
   };
 
-  socket.on("newChannel", listenerNewChannel);
-  socket.on("removeChannel", listenerRemoveChannel);
-  socket.on("renameChannel", listenerRenameChannel);
-  socket.on("newMessage", listenerNewMessage);
+  socket.on('newChannel', listenerNewChannel);
+  socket.on('removeChannel', listenerRemoveChannel);
+  socket.on('renameChannel', listenerRenameChannel);
+  socket.on('newMessage', listenerNewMessage);
 
   return (
     <Provider store={store}>
@@ -89,7 +89,7 @@ const init = async () => {
         <RollbarProvider config={rollbarConfig}>
           <ErrorBoundary>
             <ModalProvider>
-                <App />
+              <App />
             </ModalProvider>
           </ErrorBoundary>
         </RollbarProvider>

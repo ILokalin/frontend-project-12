@@ -1,22 +1,34 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useMemo,
+} from 'react';
 
 const ModalContext = createContext();
 
 export const ModalProvider = ({ children }) => {
-  const [config, setConfig] = useState(null);
+  const [modalConfig, setModalConfig] = useState(null);
 
   const openModal = (config) => {
-    setConfig(config);
+    setModalConfig(config);
   };
 
   const closeModal = () => {
-    setConfig(null);
+    setModalConfig(null);
   };
 
+  const value = useMemo(
+    () => ({
+      modalConfig,
+      openModal,
+      closeModal,
+    }),
+    [modalConfig],
+  );
+
   return (
-    <ModalContext.Provider value={{ config, openModal, closeModal }}>
-      {children}
-    </ModalContext.Provider>
+    <ModalContext.Provider value={value}>{children}</ModalContext.Provider>
   );
 };
 

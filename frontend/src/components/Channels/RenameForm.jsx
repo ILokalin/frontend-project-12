@@ -1,13 +1,13 @@
-import { useRef, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useFormik } from "formik";
-import { Form } from "react-bootstrap";
-import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
-import { selectChannelsNames, useUpdateChannel } from "services/channelsApi";
-import { getValidationSchema } from "./validation";
-import { FIELD_NAME } from "./constants";
-import Button from "components/Buttons/LoadingButton";
+import { useRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useFormik } from 'formik';
+import { Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { selectChannelsNames, useUpdateChannel } from 'services/channelsApi';
+import { getValidationSchema } from './validation';
+import { FIELD_NAME } from './constants';
+import Button from 'components/Buttons/LoadingButton';
 
 const RenameForm = ({ handleClose, channel }) => {
   const { t } = useTranslation();
@@ -73,7 +73,7 @@ const RenameForm = ({ handleClose, channel }) => {
           isInvalid={!!extraErrors[FIELD_NAME]}
         />
         <Form.Label className="visually-hidden" htmlFor={FIELD_NAME}>
-          {t("channels.global.channelName")}
+          {t('channels.global.channelName')}
         </Form.Label>
         <Form.Control.Feedback type="invalid">
           {t(`channels.renameForm.error.${extraErrors[FIELD_NAME]}`)}
@@ -86,7 +86,7 @@ const RenameForm = ({ handleClose, channel }) => {
             disabled={isSubmitting}
             onClick={handleClose}
           >
-            {t("global.cancel")}
+            {t('global.cancel')}
           </Button>
           <Button
             type="submit"
@@ -94,7 +94,7 @@ const RenameForm = ({ handleClose, channel }) => {
             disabled={isSubmitDisabled}
             isLoading={isLoading}
           >
-            {t("global.submit")}
+            {t('global.submit')}
           </Button>
         </div>
       </Form.Group>

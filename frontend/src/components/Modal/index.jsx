@@ -1,7 +1,7 @@
-import { Modal } from "react-bootstrap";
-import { useModal } from "context/ModalContext";
-import Body from "./Body";
-import Header from "./Header";
+import { Modal } from 'react-bootstrap';
+import { useModal } from 'context/ModalContext';
+import Body from './Body';
+import Header from './Header';
 
 const BaseModal = () => {
   const { config, closeModal } = useModal();

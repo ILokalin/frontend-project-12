@@ -1,4 +1,4 @@
-import { ModalHeader, ModalTitle, Button } from "react-bootstrap";
+import { ModalHeader, ModalTitle, Button } from 'react-bootstrap';
 
 const Header = ({ title, handleClose }) => (
   <ModalHeader>

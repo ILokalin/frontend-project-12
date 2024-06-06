@@ -1,13 +1,13 @@
-import { createSlice, createSelector } from "@reduxjs/toolkit";
-import authApi from "services/authApi";
-import { STORAGE_APP_NAME } from "./constants";
-import { clearError, extractAuthError } from "./helpers";
+import { createSlice, createSelector } from '@reduxjs/toolkit';
+import authApi from 'services/authApi';
+import { STORAGE_APP_NAME } from './constants';
+import { clearError, extractAuthError } from './helpers';
 
 const initialState = {
-  token: "",
-  username: "",
+  token: '',
+  username: '',
   isError: false,
-  error: "",
+  error: '',
 };
 
 export const setError = (state, { payload }) => {
@@ -36,7 +36,7 @@ const prepareInitialState = () => {
 };
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState: prepareInitialState(),
   reducers: {
     clearAuth: () => {
@@ -55,7 +55,7 @@ const authSlice = createSlice({
           username: payload.username,
         });
         localStorage.setItem(STORAGE_APP_NAME, JSON.stringify(payload));
-      }
+      },
     );
     builder.addMatcher(authApi.endpoints.login.matchRejected, setError);
     builder.addMatcher(authApi.endpoints.signup.matchPending, clearError);
@@ -68,7 +68,7 @@ const authSlice = createSlice({
           username: payload.username,
         });
         localStorage.setItem(STORAGE_APP_NAME, JSON.stringify(payload));
-      }
+      },
     );
     builder.addMatcher(authApi.endpoints.signup.matchRejected, setError);
   },
@@ -80,28 +80,28 @@ export const selectAuth = (state) => state.auth;
 
 export const selectUser = createSelector(
   selectAuth,
-  (authState) => authState.username
+  (authState) => authState.username,
 );
 
 export const selectToken = createSelector(
   selectAuth,
-  (authState) => authState.token
+  (authState) => authState.token,
 );
 
 export const selectIsAuthError = createSelector(
   selectAuth,
-  (authState) => authState.isError
+  (authState) => authState.isError,
 );
 
 export const selectAuthError = createSelector(
   selectAuth,
-  (authState) => authState.error
+  (authState) => authState.error,
 );
 
 export const selectIsAuth = createSelector(
   selectToken,
   selectIsAuthError,
-  (token, isError) => Boolean(token) && !isError
+  (token, isError) => Boolean(token) && !isError,
 );
 
 export default authSlice.reducer;

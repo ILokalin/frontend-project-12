@@ -1,5 +1,5 @@
-export const FIELD_MESSAGE = "body";
+export const FIELD_MESSAGE = 'body';
 
 export const initialValues = {
-  [FIELD_MESSAGE]: "",
+  [FIELD_MESSAGE]: '',
 };

@@ -1,44 +1,43 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { createSelector } from "@reduxjs/toolkit";
-import ROUTES from "./apiConfig";
-import { selectCurrentChannelId } from "redux/slices/uiSelectors";
-import { prepareHeaders } from "./helpers";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createSelector } from '@reduxjs/toolkit';
+import { API_ROUTES } from 'configs/apiRouts';
+import { selectCurrentChannelId } from 'redux/slices/uiSelectors';
+import { prepareHeaders } from './helpers';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: ROUTES.CHANNELS,
+  baseUrl: API_ROUTES.CHANNELS,
   prepareHeaders,
 });
 
 const channelsApi = createApi({
-  reducerPath: "channelsApi",
+  reducerPath: 'channelsApi',
   baseQuery,
-  tagTypes: ["Channels"],
+  tagTypes: ['Channels', 'Messages'],
   endpoints: (builder) => ({
     addChannel: builder.mutation({
       query: (channel) => ({
-        method: "POST",
+        method: 'POST',
         body: channel,
       }),
     }),
     updateChannel: builder.mutation({
       query: ({ id, ...body }) => ({
         url: id,
-        method: "PATCH",
+        method: 'PATCH',
         body,
       }),
     }),
     deleteChannel: builder.mutation({
       query: ({ id }) => ({
         url: id,
-        method: "DELETE",
+        method: 'DELETE',
+        invalidatesTags: ['Messages', 'Channels'],
       }),
-      transformResponse: (response) => {
-        return { ...response };
-      },
+      transformResponse: (response) => ({ ...response }),
     }),
     getChannels: builder.query({
-      query: () => "",
-      providesTags: ["Channels"],
+      query: () => '',
+      providesTags: ['Channels'],
     }),
   }),
 });
@@ -47,18 +46,19 @@ const selectChannels = channelsApi.endpoints.getChannels.select();
 
 const selectChannelsData = createSelector(
   selectChannels,
-  (channelsState) => channelsState.data ?? []
+  (channelsState) => channelsState.data ?? [],
 );
 
 export const selectChannelsNames = createSelector(
   selectChannelsData,
-  (channels) => channels.map(({ name }) => name)
+  (channels) => channels.map(({ name }) => name),
 );
 
 export const selectCurrentChannel = createSelector(
   [selectChannelsData, selectCurrentChannelId],
-  (channels, currentChannelId) =>
+  (channels, currentChannelId) => (
     channels.find((channel) => channel.id === currentChannelId) || null
+  ),
 );
 
 export const {

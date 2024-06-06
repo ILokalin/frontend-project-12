@@ -1,10 +1,10 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
-import { useDeleteChannel } from "services/channelsApi";
-import Button from "components/Buttons/LoadingButton";
-import { Fragment } from "react";
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { useDeleteChannel } from 'services/channelsApi';
+import Button from 'components/Buttons/LoadingButton';
+import { Fragment } from 'react';
 
 const DeleteForm = ({ handleClose, channel }) => {
   const { t } = useTranslation();
@@ -23,7 +23,7 @@ const DeleteForm = ({ handleClose, channel }) => {
 
   return (
     <Fragment>
-      <p className="lead">{t("channels.deleteForm.areYouSure")}</p>
+      <p className="lead">{t('channels.deleteForm.areYouSure')}</p>
       <div className="d-flex justify-content-end">
         <Button
           className="me-2"
@@ -31,7 +31,7 @@ const DeleteForm = ({ handleClose, channel }) => {
           type="button"
           onClick={handleClose}
         >
-          {t("global.cancel")}
+          {t('global.cancel')}
         </Button>
         <Button
           variant="danger"
@@ -40,7 +40,7 @@ const DeleteForm = ({ handleClose, channel }) => {
           isLoading={isLoading}
           onClick={handaleDelete}
         >
-          {t("global.delete")}
+          {t('global.delete')}
         </Button>
       </div>
     </Fragment>

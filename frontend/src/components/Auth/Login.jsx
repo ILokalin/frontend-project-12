@@ -1,21 +1,21 @@
-import { useRef, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { Form, Card } from "react-bootstrap";
-import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { useLogin } from "services/authApi";
-import { selectAuthError, selectIsAuthError } from "redux/slices/authSlice";
-import PAGES from "configs/routs";
-import loginImg from "assets/login.jpg";
-import Button from "components/Buttons/LoadingButton";
-import AuthForm from "./AuthForm";
-import { loginValidationSchema as validationSchema } from "./validation";
+import { useRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Form, Card } from 'react-bootstrap';
+import { useFormik } from 'formik';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useLogin } from 'services/authApi';
+import { selectAuthError, selectIsAuthError } from 'redux/slices/authSlice';
+import { PAGE_ROUTS } from 'configs/pageRouts';
+import loginImg from 'assets/login.jpg';
+import Button from 'components/Buttons/LoadingButton';
+import AuthForm from './AuthForm';
+import { loginValidationSchema as validationSchema } from './validation';
 import {
   loginInitialValues as initialValues,
   FIELD_PASSWORD,
   FIELD_USERNAME,
-} from "./constants";
+} from './constants';
 
 const Login = () => {
   const { t } = useTranslation();
@@ -35,7 +35,7 @@ const Login = () => {
     onSubmit: async (values, { setErrors }) => {
       setErrors({});
       await login(values).unwrap();
-      navigate(PAGES.MAIN);
+      navigate(PAGE_ROUTS.MAIN);
     },
   });
 
@@ -45,15 +45,15 @@ const Login = () => {
   };
 
   const footer = {
-    text: t("auth.loginForm.dontHaveAccount"),
-    action: t("auth.signupForm.registration"),
-    href: PAGES.SIGNUP,
+    text: t('auth.loginForm.dontHaveAccount'),
+    action: t('auth.signupForm.registration'),
+    href: PAGE_ROUTS.SIGNUP,
   };
 
   return (
     <AuthForm img={loginImg} footer={footer}>
       <Form className="mt-3 mt-mb-0" onSubmit={handleSubmit}>
-        <Card.Title>{t("auth.loginForm.login")}</Card.Title>
+        <Card.Title>{t('auth.loginForm.login')}</Card.Title>
         <Form.Group className="form-floating mb-3">
           <Form.Control
             className="form-control"
@@ -62,12 +62,12 @@ const Login = () => {
             onChange={handleChange}
             value={values[FIELD_USERNAME]}
             autoComplete="username"
-            placeholder={t("auth.loginForm.yourNickname")}
+            placeholder={t('auth.loginForm.yourNickname')}
             ref={inputRef}
             isInvalid={!!extraErrors[FIELD_USERNAME] || isAuthError}
           />
           <Form.Label htmlFor="username">
-            {t("auth.loginForm.yourNickname")}
+            {t('auth.loginForm.yourNickname')}
           </Form.Label>
           {!isAuthError && (
             <Form.Control.Feedback type="invalid">
@@ -84,11 +84,11 @@ const Login = () => {
             onChange={handleChange}
             value={values[FIELD_PASSWORD]}
             autoComplete="current-pasword"
-            placeholder={t("auth.loginForm.password")}
+            placeholder={t('auth.loginForm.password')}
             isInvalid={!!extraErrors[FIELD_PASSWORD] || isAuthError}
           />
           <Form.Label htmlFor="password">
-            {t("auth.loginForm.password")}
+            {t('auth.loginForm.password')}
           </Form.Label>
           <Form.Control.Feedback type="invalid">
             {t(`auth.loginForm.error.${extraErrors[FIELD_PASSWORD]}`)}
@@ -101,7 +101,7 @@ const Login = () => {
           type="submit"
           variant="outline-primary"
         >
-          {t("auth.loginForm.login")}
+          {t('auth.loginForm.login')}
         </Button>
       </Form>
     </AuthForm>

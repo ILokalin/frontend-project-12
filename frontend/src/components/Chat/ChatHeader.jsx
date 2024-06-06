@@ -1,6 +1,6 @@
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
-const ChatHeader = ({ channelName = "", count }) => {
+const ChatHeader = ({ channelName = '', count }) => {
   const { t } = useTranslation();
 
   return (
@@ -10,7 +10,7 @@ const ChatHeader = ({ channelName = "", count }) => {
           <b>{`# ${channelName}`}</b>
         </p>
       )}
-      <span className="text-muted">{`${count} ${t("chat.messagesCount", {
+      <span className="text-muted">{`${count} ${t('chat.messagesCount', {
         count,
       })}`}</span>
     </div>

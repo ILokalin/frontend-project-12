@@ -1,5 +1,5 @@
-import { Button, Spinner } from "react-bootstrap";
-import classNames from "classnames";
+import { Button, Spinner } from 'react-bootstrap';
+import classNames from 'classnames';
 
 const LoadingButton = ({
   children,
@@ -7,11 +7,11 @@ const LoadingButton = ({
   onClick,
   isLoading,
   variant,
-  type = "button",
+  type = 'button',
   disabled,
 }) => (
   <Button
-    className={classNames("px-5 position-relative", className)}
+    className={classNames('px-5 position-relative', className)}
     onClick={onClick}
     disabled={disabled}
     variant={variant}

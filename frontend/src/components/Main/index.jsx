@@ -1,8 +1,8 @@
-import Wrapper from "components/Wrapper";
-import Channels from "components/Channels";
-import { useGetMessages } from "services/messagesApi";
-import { useGetChannels } from "services/channelsApi";
-import Chat from "components/Chat";
+import Wrapper from 'components/Wrapper';
+import Channels from 'components/Channels';
+import { useGetMessages } from 'services/messagesApi';
+import { useGetChannels } from 'services/channelsApi';
+import Chat from 'components/Chat';
 
 const MainPage = () => {
   const { isLoading: isMessagesLoading } = useGetMessages();

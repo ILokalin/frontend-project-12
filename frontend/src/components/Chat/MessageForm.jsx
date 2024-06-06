@@ -1,15 +1,15 @@
-import { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
-import { useFormik } from "formik";
-import { Form, InputGroup, Button } from "react-bootstrap";
-import { useTranslation } from "react-i18next";
-import { ArrowRightSquare } from "react-bootstrap-icons";
-import { selectCurrentChannel } from "services/channelsApi";
-import { selectUser } from "redux/slices/authSlice";
-import { useAddMessage } from "services/messagesApi";
-import { initialValues, FIELD_MESSAGE } from "./constants";
-import { validationSchema } from "./validation";
-import { filterProfanity } from "./profanityFilter";
+import { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { useFormik } from 'formik';
+import { Form, InputGroup, Button } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { ArrowRightSquare } from 'react-bootstrap-icons';
+import { selectCurrentChannel } from 'services/channelsApi';
+import { selectUser } from 'redux/slices/authSlice';
+import { useAddMessage } from 'services/messagesApi';
+import { initialValues, FIELD_MESSAGE } from './constants';
+import { validationSchema } from './validation';
+import { filterProfanity } from './profanityFilter';
 
 const MessageForm = () => {
   const { t } = useTranslation();
@@ -61,8 +61,8 @@ const MessageForm = () => {
           onBlur={handleBlur}
           value={values[FIELD_MESSAGE]}
           disabled={isSubmitting}
-          area-label={t("chat.newMessage")}
-          placeholder={t("chat.typeYourMessage")}
+          area-label={t('chat.newMessage')}
+          placeholder={t('chat.typeYourMessage')}
         />
         <Button
           variant="group-vertical"
@@ -70,7 +70,7 @@ const MessageForm = () => {
           disabled={isInvalid || isLoading}
         >
           <ArrowRightSquare size={20} />
-          <span className="visually-hidden">{t("global.submit")}</span>
+          <span className="visually-hidden">{t('global.submit')}</span>
         </Button>
       </InputGroup>
     </Form>

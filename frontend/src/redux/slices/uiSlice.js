@@ -1,14 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
-import channelsApi from "services/channelsApi.js";
-import authApi from "services/authApi";
-import messagesApi from "services/messagesApi.js";
-import { DEFAULT_CHANNEL_ID  } from "./constants.js";
-import { clearError, extractUiError } from "./helpers.js";
+import { createSlice } from '@reduxjs/toolkit';
+import channelsApi from 'services/channelsApi.js';
+import authApi from 'services/authApi';
+import messagesApi from 'services/messagesApi.js';
+import { DEFAULT_CHANNEL_ID } from './constants.js';
+import { clearError, extractUiError } from './helpers.js';
 
 const initialState = {
   currentId: DEFAULT_CHANNEL_ID,
   defaultId: DEFAULT_CHANNEL_ID,
-  error: "",
+  error: '',
   isError: false,
 };
 
@@ -46,18 +46,20 @@ const setErrorEndpoints = [
 ];
 
 const uiSlice = createSlice({
-  name: "ui",
+  name: 'ui',
   initialState,
   reducers: {
     setCurrentChannel(state, { payload }) {
-      state.currentId = payload.id;
+      Object.assign(state, {
+        currentId: payload.id,
+      });
     },
   },
   extraReducers: (builder) => {
-    clearErrorEndpoints.forEach(endpoint => {
+    clearErrorEndpoints.forEach((endpoint) => {
       builder.addMatcher(endpoint, clearError);
     });
-    setErrorEndpoints.forEach(endpoint => {
+    setErrorEndpoints.forEach((endpoint) => {
       builder.addMatcher(endpoint, setError);
     });
 
@@ -68,24 +70,24 @@ const uiSlice = createSlice({
           currentId: payload.id,
           isError: false,
         });
-      }
+      },
     );
     builder.addMatcher(
       channelsApi.endpoints.deleteChannel.matchFulfilled,
       (state, { payload }) => {
         const updates = {
           isError: false,
-          error: "",
+          error: '',
         };
         if (state.currentId === payload.id) {
           updates.currentId = state.defaultId;
         }
         Object.assign(state, updates);
-      }
+      },
     );
   },
 });
 
-export const { setCurrentChannel, openModal, closeModal } = uiSlice.actions;
+export const { setCurrentChannel } = uiSlice.actions;
 
 export default uiSlice.reducer;

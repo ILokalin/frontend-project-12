@@ -1,4 +1,4 @@
-import { ModalBody } from "react-bootstrap";
+import { ModalBody } from 'react-bootstrap';
 
 const Body = ({ component, handleClose, modalProps = {} }) => {
   const Component = component;
