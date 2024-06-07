@@ -33,7 +33,7 @@ const ru = {
           passwordLength: 'От 6 символов',
           passwordsMustMatch: 'Пароли должны совпадать',
         },
-        yourNickname: 'Ваш ник',
+        yourNickname: 'Имя пользователя',
         password: 'Пароль',
         confirmPassword: 'Подтвердите пароль',
         registration: 'Регистрация',

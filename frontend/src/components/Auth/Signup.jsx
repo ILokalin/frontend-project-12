@@ -61,7 +61,7 @@ const Signup = () => {
             ref={inputRef}
             isInvalid={!!extraErrors[FIELD_USERNAME]}
           />
-          <Form.Label htmlFor="username">
+          <Form.Label htmlFor={FIELD_USERNAME}>
             {t('auth.signupForm.yourNickname')}
           </Form.Label>
           {!isAuthError && (
@@ -82,7 +82,7 @@ const Signup = () => {
             placeholder={t('auth.signupForm.password')}
             isInvalid={!!extraErrors[FIELD_PASSWORD]}
           />
-          <Form.Label htmlFor="password">
+          <Form.Label htmlFor={FIELD_PASSWORD}>
             {t('auth.signupForm.password')}
           </Form.Label>
           {!isAuthError && (
@@ -103,7 +103,7 @@ const Signup = () => {
             placeholder={t('auth.signupForm.confirmPassword')}
             isInvalid={!!extraErrors[FIELD_CONFIRM_PASSWORD]}
           />
-          <Form.Label htmlFor="password">
+          <Form.Label htmlFor={FIELD_CONFIRM_PASSWORD}>
             {t('auth.signupForm.confirmPassword')}
           </Form.Label>
           <Form.Control.Feedback type="invalid">
