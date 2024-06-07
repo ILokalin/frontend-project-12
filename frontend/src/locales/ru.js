@@ -30,7 +30,7 @@ const ru = {
           requiredField: 'Обязательное поле',
           userAlreadyExist: 'Такой пользователь уже существует',
           usernameLength: 'От 3 до 20 символов',
-          passwordLength: 'От 6 символов',
+          passwordLength: 'Не менее 6 символов',
           passwordsMustMatch: 'Пароли должны совпадать',
         },
         yourNickname: 'Имя пользователя',

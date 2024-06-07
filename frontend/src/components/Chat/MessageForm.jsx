@@ -61,7 +61,7 @@ const MessageForm = () => {
           onBlur={handleBlur}
           value={values[FIELD_MESSAGE]}
           disabled={isSubmitting}
-          area-label={t('chat.newMessage')}
+          aria-label={t('chat.newMessage')}
           placeholder={t('chat.typeYourMessage')}
         />
         <Button
