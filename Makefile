@@ -2,7 +2,7 @@ install:
 	npm ci && make -C frontend install
 
 start-frontend:
-	make -C frontend start
+	make -C frontend start -timeout=2000
 
 start-backend:
 	npx start-server
