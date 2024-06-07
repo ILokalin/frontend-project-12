@@ -70,7 +70,7 @@ const Channels = () => {
           className="p-0 text-primary"
         >
           <PlusSquare size={20} />
-          <span className="visually-hidden">{t('channels.addChannel')}</span>
+          <span className="visually-hidden">{`+ ${t('channels.addChannel')}`}</span>
         </Button>
       </div>
       <ul className="nav flex-column nav-pills nav-fill mb-3 overflow-auto h-100 d-block">

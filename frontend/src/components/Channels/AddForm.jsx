@@ -66,7 +66,7 @@ const AddForm = ({ handleClose }) => {
           isInvalid={extraErrors[FIELD_NAME]}
         />
         <label className="visually-hidden" htmlFor={FIELD_NAME}>
-          {t('channels.global.channelName')}
+          {t('global.channelName')}
         </label>
         <Form.Control.Feedback type="invalid">
           {t(`channels.addForm.error.${extraErrors[FIELD_NAME]}`)}

@@ -73,7 +73,7 @@ const RenameForm = ({ handleClose, channel }) => {
           isInvalid={!!extraErrors[FIELD_NAME]}
         />
         <Form.Label className="visually-hidden" htmlFor={FIELD_NAME}>
-          {t('channels.global.channelName')}
+          {t('global.channelName')}
         </Form.Label>
         <Form.Control.Feedback type="invalid">
           {t(`channels.renameForm.error.${extraErrors[FIELD_NAME]}`)}
