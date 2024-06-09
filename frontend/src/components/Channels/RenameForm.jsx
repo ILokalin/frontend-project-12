@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import leoProfanity from 'leo-profanity';
 import { toast } from 'react-toastify';
 import { selectChannelsNames, useUpdateChannel } from 'services/channelsApi';
 import { getValidationSchema } from './validation';
@@ -41,9 +42,12 @@ const RenameForm = ({ handleClose, channel }) => {
     },
     onSubmit: async (formData) => {
       const schema = getValidationSchema(names);
-      await schema.validate(formData);
+      const newChannelData = {
+        [FIELD_NAME]: leoProfanity.clean(formData[FIELD_NAME]) 
+      }
+      await schema.validate(newChannelData);
       await renameChannel({
-        ...schema.cast(formData),
+        ...schema.cast(newChannelData),
         id: channel.id,
       });
       handleClose();

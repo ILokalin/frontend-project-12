@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { Form, InputGroup, Button } from 'react-bootstrap';
+import leoProfanity from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { selectCurrentChannel } from 'services/channelsApi';
@@ -9,7 +10,6 @@ import { selectUser } from 'redux/slices/authSlice';
 import { useAddMessage } from 'services/messagesApi';
 import { initialValues, FIELD_MESSAGE } from './constants';
 import { validationSchema } from './validation';
-import { filterProfanity } from './profanityFilter';
 
 const MessageForm = () => {
   const { t } = useTranslation();
@@ -34,7 +34,7 @@ const MessageForm = () => {
     validateOnBlur: false,
     onSubmit: async (formData) => {
       const message = {
-        body: filterProfanity(formData[FIELD_MESSAGE]),
+        body: leoProfanity.clean(formData[FIELD_MESSAGE]),
         channelId: channel.id,
         username,
       };

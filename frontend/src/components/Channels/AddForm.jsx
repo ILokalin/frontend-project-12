@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import { Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import leoProfanity from 'leo-profanity';
 import { selectChannelsNames, useAddChannel } from 'services/channelsApi';
 import Button from 'components/Buttons/LoadingButton';
 import { getValidationSchema } from './validation';
@@ -39,8 +40,9 @@ const AddForm = ({ handleClose }) => {
     initialValues,
     onSubmit: async (formData) => {
       const schema = getValidationSchema(names);
-      await schema.validate(formData);
-      await addChannel(schema.cast(formData));
+      const channel = { [FIELD_NAME]: leoProfanity.clean(formData[FIELD_NAME]) }
+      await schema.validate(channel);
+      await addChannel(schema.cast(channel));
       handleClose();
     },
   });

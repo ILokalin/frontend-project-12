@@ -8,8 +8,8 @@ export const getValidationSchema = (channels) => (
       .string()
       .trim()
       .required('requiredField')
-      .min(3, 'min')
-      .max(20, 'max')
+      .min(3, 'length')
+      .max(20, 'length')
       .notOneOf(channels, 'mustBeUnique')
       .test('no-leading-spaces', 'removeLeadSpaces', testLeadSpaces),
   })

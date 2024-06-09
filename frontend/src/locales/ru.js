@@ -44,7 +44,7 @@ const ru = {
       addForm: {
         addChannel: 'Добавить канал',
         error: {
-          min: 'От 3 до 20 символов',
+          length: 'От 3 до 20 символов',
           mustBeUnique: 'Должно быть уникальным',
           removeLeadSpaces: 'Исключите пробелы перед названием',
           requiredField: 'Обязательное поле',
@@ -57,7 +57,7 @@ const ru = {
       renameForm: {
         renameChannel: 'Переименовать канал',
         error: {
-          min: 'От 3 до 20 символов',
+          length: 'От 3 до 20 символов',
           mustBeUnique: 'Должно быть уникальным',
           removeLeadSpaces: 'Исключите пробелы перед названием',
           requiredField: 'Обязательное поле',
@@ -68,9 +68,9 @@ const ru = {
       rename: 'Переименовать',
       delete: 'Удалить',
       channelControl: 'Управление каналом',
-      сhannelAddedSuccessfully: 'Канал успешно добавлен',
-      сhannelDeletedSuccessfully: 'Канал успешно удален',
-      сhannelRenamedSuccessfully: 'Канал успешно переименован',
+      сhannelAddedSuccessfully: 'Канал создан',
+      сhannelDeletedSuccessfully: 'Канал удалён',
+      сhannelRenamedSuccessfully: 'Канал переименован',
     },
     chat: {
       typeYourMessage: 'Введите сообщение...',
