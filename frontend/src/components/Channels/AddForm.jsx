@@ -45,6 +45,8 @@ const AddForm = ({ handleClose }) => {
       await addChannel(schema.cast(channel));
       handleClose();
     },
+    validateOnBlur: false,
+    validateOnChange: false,
   });
 
   const extraErrors = {

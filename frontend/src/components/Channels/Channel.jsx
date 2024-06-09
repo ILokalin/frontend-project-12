@@ -10,7 +10,7 @@ const Channel = ({
   handleRename,
 }) => {
   const { t } = useTranslation();
-  const variant = isCurrent ? 'secondary' : null;
+  const variant = isCurrent ? 'secondary' : '';
   const isRemovable = channel[ATTRIBUTE_REMOVABLE];
 
   return (
@@ -28,7 +28,7 @@ const Channel = ({
           </Button>
           <Dropdown.Toggle
             split
-            className="flex-grow-0"
+            className="flex-grow-0 rounded-0"
             variant={variant}
           >
             <span className="visually-hidden">

@@ -13,7 +13,11 @@ const AuthForm = ({ img, children, footer, isLoading }) => (
                 xs="12"
                 className="d-flex align-items-center justify-content-center"
               >
-                <img src={img} alt="login form page" />
+                <img
+                  className="rounded-circle"
+                  src={img}
+                  alt="login form page" 
+                />
               </Col>
               <Col md="6" xs="12" className="mt-3 mt-mb-0">
                 {children}

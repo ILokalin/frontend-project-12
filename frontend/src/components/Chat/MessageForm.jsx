@@ -51,10 +51,10 @@ const MessageForm = () => {
   const isInvalid = !dirty || !isValid;
 
   return (
-    <Form className="py-1" noValidate={true} onSubmit={handleSubmit}>
+    <Form className="py-1 border rounded-2" noValidate={true} onSubmit={handleSubmit}>
       <InputGroup hasValidation={isInvalid}>
         <Form.Control
-          className="border rounded-end-0"
+          className="border-0 rounded-end-0"
           ref={inputRef}
           name={FIELD_MESSAGE}
           onChange={handleChange}

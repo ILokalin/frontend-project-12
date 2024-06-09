@@ -80,6 +80,11 @@ const ru = {
       messagesCount_few: 'сообщения',
       messagesCount_many: 'сообщений',
     },
+    notFoundPage: {
+      pageNotFound: 'Страница не найдена',
+      butYouCanMove: 'Но вы можете перейти',
+      toHomePage: 'на главную страницу',
+    }
   },
 };
 
