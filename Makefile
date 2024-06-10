@@ -18,3 +18,6 @@ deploy:
 
 freeport:
 	sudo fuser -k 5001/tcp
+
+lint-frontend:
+```	make -C frontend lint
