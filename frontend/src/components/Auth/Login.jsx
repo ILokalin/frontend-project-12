@@ -29,12 +29,17 @@ const Login = () => {
     inputRef.current.focus();
   }, []);
 
-  const { handleSubmit, handleChange, values, errors } = useFormik({
+  const {
+    handleSubmit,
+    handleChange,
+    values,
+    errors,
+  } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: async (values, { setErrors }) => {
+    onSubmit: async (data, { setErrors }) => {
       setErrors({});
-      await login(values).unwrap();
+      await login(data).unwrap();
       navigate(PAGE_ROUTS.MAIN);
     },
   });

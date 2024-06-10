@@ -22,7 +22,7 @@ const AddForm = ({ handleClose }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success(t(`channels.сhannelAddedSuccessfully`));
+      toast.success(t('channels.сhannelAddedSuccessfully'));
     }
   }, [isSuccess, t]);
 
@@ -40,7 +40,7 @@ const AddForm = ({ handleClose }) => {
     initialValues,
     onSubmit: async (formData) => {
       const schema = getValidationSchema(names);
-      const channel = { [FIELD_NAME]: leoProfanity.clean(formData[FIELD_NAME]) }
+      const channel = { [FIELD_NAME]: leoProfanity.clean(formData[FIELD_NAME]) };
       await schema.validate(channel);
       await addChannel(schema.cast(channel));
       handleClose();

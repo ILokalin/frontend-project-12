@@ -30,12 +30,17 @@ const Signup = () => {
     inputRef.current.focus();
   }, []);
 
-  const { handleSubmit, handleChange, values, errors } = useFormik({
+  const {
+    handleSubmit,
+    handleChange,
+    values,
+    errors,
+  } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: async (values, { setErrors }) => {
+    onSubmit: async (data, { setErrors }) => {
       setErrors({});
-      await signup(values).unwrap();
+      await signup(data).unwrap();
       navigate(PAGE_ROUTS.MAIN);
     },
   });

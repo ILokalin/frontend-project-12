@@ -10,9 +10,7 @@ const ChatHeader = ({ channelName = '', count }) => {
           <b>{`# ${channelName}`}</b>
         </p>
       )}
-      <span className="text-muted">{`${count} ${t('chat.messagesCount', {
-        count,
-      })}`}</span>
+      <span className="text-muted">{`${count} ${t('chat.messagesCount', { count })}`}</span>
     </div>
   );
 };

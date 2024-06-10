@@ -5,10 +5,10 @@ import { Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import leoProfanity from 'leo-profanity';
 import { toast } from 'react-toastify';
+import Button from 'components/Buttons/LoadingButton';
 import { selectChannelsNames, useUpdateChannel } from 'services/channelsApi';
 import { getValidationSchema } from './validation';
 import { FIELD_NAME } from './constants';
-import Button from 'components/Buttons/LoadingButton';
 
 const RenameForm = ({ handleClose, channel }) => {
   const { t } = useTranslation();
@@ -22,7 +22,7 @@ const RenameForm = ({ handleClose, channel }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success(t(`channels.сhannelRenamedSuccessfully`));
+      toast.success(t('channels.сhannelRenamedSuccessfully'));
     }
   }, [isSuccess, t]);
 
@@ -43,8 +43,8 @@ const RenameForm = ({ handleClose, channel }) => {
     onSubmit: async (formData) => {
       const schema = getValidationSchema(names);
       const newChannelData = {
-        [FIELD_NAME]: leoProfanity.clean(formData[FIELD_NAME]) 
-      }
+        [FIELD_NAME]: leoProfanity.clean(formData[FIELD_NAME]),
+      };
       await schema.validate(newChannelData);
       await renameChannel({
         ...schema.cast(newChannelData),

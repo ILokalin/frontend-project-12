@@ -10,7 +10,9 @@ const BaseModal = () => {
 
   return (
     <Modal show onHide={closeModal} centered>
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       {config?.header && <Header {...config.header} handleClose={closeModal} />}
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       {config?.body && <Body {...config.body} handleClose={closeModal} />}
     </Modal>
   );

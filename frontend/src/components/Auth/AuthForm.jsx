@@ -1,7 +1,12 @@
 import { Col, Row, Card } from 'react-bootstrap';
 import Wrapper from 'components/Wrapper';
 
-const AuthForm = ({ img, children, footer, isLoading }) => (
+const AuthForm = ({
+  img,
+  children,
+  footer,
+  isLoading,
+}) => (
   <Wrapper isForm isLoading={isLoading}>
     <Row className="justify-content-center align-content-center h-100">
       <Col xs="12" xxl="6" md="8">
@@ -16,7 +21,7 @@ const AuthForm = ({ img, children, footer, isLoading }) => (
                 <img
                   className="rounded-circle"
                   src={img}
-                  alt="login form page" 
+                  alt="login form page"
                 />
               </Col>
               <Col md="6" xs="12" className="mt-3 mt-mb-0">
@@ -27,7 +32,8 @@ const AuthForm = ({ img, children, footer, isLoading }) => (
           {footer && (
             <Card.Footer className="p-4">
               <div className="text-center">
-                <span>{footer.text}</span>{' '}
+                <span>{footer.text}</span>
+                {' '}
                 <a href={footer.href}>{footer.action}</a>
               </div>
             </Card.Footer>

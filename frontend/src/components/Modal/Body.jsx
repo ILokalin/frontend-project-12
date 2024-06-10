@@ -5,6 +5,7 @@ const Body = ({ component, handleClose, modalProps = {} }) => {
 
   return (
     <ModalBody>
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <Component handleClose={handleClose} {...modalProps} />
     </ModalBody>
   );

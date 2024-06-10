@@ -84,7 +84,7 @@ const ru = {
       pageNotFound: 'Страница не найдена',
       butYouCanMove: 'Но вы можете перейти',
       toHomePage: 'на главную страницу',
-    }
+    },
   },
 };
 

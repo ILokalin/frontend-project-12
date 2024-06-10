@@ -33,8 +33,8 @@ const init = async () => {
         undefined,
         (draftChannels) => {
           draftChannels.push(payload);
-        }
-      )
+        },
+      ),
     );
   };
 
@@ -47,10 +47,8 @@ const init = async () => {
       channelsApi.util.updateQueryData(
         'getChannels',
         undefined,
-        (draftChannels) => {
-          return draftChannels.filter(({ id }) => id !== payload.id);
-        }
-      )
+        (draftChannels) => draftChannels.filter(({ id }) => id !== payload.id),
+      ),
     );
   };
 
@@ -65,8 +63,8 @@ const init = async () => {
           if (channel) {
             channel.name = payload.name;
           }
-        }
-      )
+        },
+      ),
     );
   };
 
@@ -77,8 +75,8 @@ const init = async () => {
         undefined,
         (draftMessage) => {
           draftMessage.push(payload);
-        }
-      )
+        },
+      ),
     );
   };
 
