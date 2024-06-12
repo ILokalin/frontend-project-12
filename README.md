@@ -24,5 +24,5 @@ npm start
 
 ##### Uses
 - React
-- React RTK Quwery
+- React RTK Query
 - leo-profanity for badwords filter
