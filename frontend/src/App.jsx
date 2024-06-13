@@ -8,7 +8,7 @@ import NotFoundPage from 'components/NotFound';
 import LoginPage from 'components/Auth/Login';
 import SignupPage from 'components/Auth/Signup';
 import MainPage from 'components/Main';
-import { PrivateRout, PublicRoute } from 'components/misc';
+import PrivateRout from 'components/misc/PrivateRout';
 import {
   getPage,
   PAGE_LOGIN,
@@ -35,12 +35,8 @@ const App = () => {
       <div className="d-flex flex-column h-100">
         <Header />
         <Routes>
-          <Route element={<PublicRoute />}>
-            <Route path={getPage(PAGE_LOGIN)} element={<LoginPage />} />
-          </Route>
-          <Route element={<PublicRoute />}>
-            <Route path={getPage(PAGE_SIGNUP)} element={<SignupPage />} />
-          </Route>
+          <Route path={getPage(PAGE_LOGIN)} element={<LoginPage />} />
+          <Route path={getPage(PAGE_SIGNUP)} element={<SignupPage />} />
           <Route element={<PrivateRout />}>
             <Route path={getPage(PAGE_MAIN)} element={<MainPage />} />
           </Route>
