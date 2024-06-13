@@ -9,7 +9,13 @@ import LoginPage from 'components/Auth/Login';
 import SignupPage from 'components/Auth/Signup';
 import MainPage from 'components/Main';
 import { PrivateRout, PublicRoute } from 'components/misc';
-import { PAGE_ROUTS } from 'configs/pageRouts';
+import {
+  getPage,
+  PAGE_LOGIN,
+  PAGE_MAIN,
+  PAGE_NOT_FOUND,
+  PAGE_SIGNUP,
+} from 'configs/pageRouts';
 import Modal from 'components/Modal';
 import Header from 'components/Header';
 
@@ -30,15 +36,15 @@ const App = () => {
         <Header />
         <Routes>
           <Route element={<PublicRoute />}>
-            <Route path={PAGE_ROUTS.LOGIN} element={<LoginPage />} />
+            <Route path={getPage(PAGE_LOGIN)} element={<LoginPage />} />
           </Route>
           <Route element={<PublicRoute />}>
-            <Route path={PAGE_ROUTS.SIGNUP} element={<SignupPage />} />
+            <Route path={getPage(PAGE_SIGNUP)} element={<SignupPage />} />
           </Route>
           <Route element={<PrivateRout />}>
-            <Route path={PAGE_ROUTS.MAIN} element={<MainPage />} />
+            <Route path={getPage(PAGE_MAIN)} element={<MainPage />} />
           </Route>
-          <Route path={PAGE_ROUTS.NOT_FOUND} element={<NotFoundPage />} />
+          <Route path={getPage(PAGE_NOT_FOUND)} element={<NotFoundPage />} />
         </Routes>
       </div>
       <Toaster

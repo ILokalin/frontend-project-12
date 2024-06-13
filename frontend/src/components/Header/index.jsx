@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button, Navbar, Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { selectIsAuth, clearAuth } from 'redux/slices/authSlice';
-import { PAGE_ROUTS } from 'configs/pageRouts';
+import { PAGE_MAIN, getPage } from 'configs/pageRouts';
 
 const Header = () => {
   const { t } = useTranslation();
@@ -16,7 +16,7 @@ const Header = () => {
   return (
     <Navbar className="shadow-sm bg-white">
       <Container className="d-flex justify-content-between">
-        <Navbar.Brand as={Link} to={PAGE_ROUTS.MAIN}>
+        <Navbar.Brand as={Link} to={getPage(PAGE_MAIN)}>
           {t('global.hexletChat')}
         </Navbar.Brand>
         {isAuth && <Button onClick={logout}>{t('header.logout')}</Button>}

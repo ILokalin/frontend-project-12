@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useLogin } from 'services/authApi';
 import { selectAuthError, selectIsAuthError } from 'redux/slices/authSlice';
-import { PAGE_ROUTS } from 'configs/pageRouts';
+import { PAGE_SIGNUP, PAGE_MAIN, getPage } from 'configs/pageRouts';
 import loginImg from 'assets/login.jpg';
 import Button from 'components/Buttons/LoadingButton';
 import AuthForm from './AuthForm';
@@ -40,7 +40,7 @@ const Login = () => {
     onSubmit: async (data, { setErrors }) => {
       setErrors({});
       await login(data).unwrap();
-      navigate(PAGE_ROUTS.MAIN);
+      navigate(getPage(PAGE_MAIN));
     },
   });
 
@@ -52,7 +52,7 @@ const Login = () => {
   const footer = {
     text: t('auth.loginForm.dontHaveAccount'),
     action: t('auth.signupForm.registration'),
-    href: PAGE_ROUTS.SIGNUP,
+    href: getPage(PAGE_SIGNUP),
   };
 
   return (

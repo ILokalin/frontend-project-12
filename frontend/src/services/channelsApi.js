@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { createSelector } from '@reduxjs/toolkit';
-import { API_ROUTES } from 'configs/apiRouts';
+import { ROUT_CHANNELS, getRoute } from 'configs/apiRouts';
 import { selectCurrentChannelId } from 'redux/slices/uiSelectors';
 import { prepareHeaders } from './helpers';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: API_ROUTES.CHANNELS,
+  baseUrl: getRoute(ROUT_CHANNELS),
   prepareHeaders,
 });
 

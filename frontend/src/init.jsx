@@ -2,7 +2,6 @@ import { Provider } from 'react-redux';
 import i18next from 'i18next';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
-import { io } from 'socket.io-client';
 import leoProfanity from 'leo-profanity';
 import channelsApi from 'services/channelsApi';
 import messagesApi from 'services/messagesApi';
@@ -14,9 +13,7 @@ import { ModalProvider } from 'context/ModalContext';
 import App from './App';
 import 'react-toastify/dist/ReactToastify.css';
 
-const init = async () => {
-  const socket = io();
-
+const init = async (socket) => {
   const ruDictionary = leoProfanity.getDictionary('ru');
   leoProfanity.add(ruDictionary);
 

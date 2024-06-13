@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { API_ROUTES } from 'configs/apiRouts';
+import { ROUT_LOGIN, ROUT_SIGNUP, getRoute } from 'configs/apiRouts';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: '.',
@@ -11,14 +11,14 @@ const authApi = createApi({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentials) => ({
-        url: API_ROUTES.LOGIN,
+        url: getRoute(ROUT_LOGIN),
         method: 'POST',
         body: credentials,
       }),
     }),
     signup: builder.mutation({
       query: (credentials) => ({
-        url: API_ROUTES.SIGNUP,
+        url: getRoute(ROUT_SIGNUP),
         method: 'POST',
         body: credentials,
       }),

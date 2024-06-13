@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSignup } from 'services/authApi';
 import { selectAuthError, selectIsAuthError } from 'redux/slices/authSlice';
-import { PAGE_ROUTS } from 'configs/pageRouts';
+import { PAGE_MAIN, getPage } from 'configs/pageRouts';
 import signupImg from 'assets/signup.jpg';
 import Button from 'components/Buttons/LoadingButton';
 import AuthForm from './AuthForm';
@@ -41,7 +41,7 @@ const Signup = () => {
     onSubmit: async (data, { setErrors }) => {
       setErrors({});
       await signup(data).unwrap();
-      navigate(PAGE_ROUTS.MAIN);
+      navigate(getPage(PAGE_MAIN));
     },
   });
 
